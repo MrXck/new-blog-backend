@@ -147,4 +147,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         updateWrapper.set(Article::getIsTop, isTop);
         this.update(updateWrapper);
     }
+
+    @Override
+    public void featured(Long id, Integer isFeatured) {
+        if (!ArticleEnum.TOP.getCode().equals(isFeatured) && !ArticleEnum.NOT_TOP.getCode().equals(isFeatured)) {
+            throw new APIException(ArticleErrorEnum.IS_FEATURED_ERROR.getValue());
+        }
+        LambdaUpdateWrapper<Article> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(Article::getId, id);
+        updateWrapper.set(Article::getIsFeatured, isFeatured);
+        this.update(updateWrapper);
+    }
 }

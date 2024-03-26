@@ -56,10 +56,16 @@ public class ArticleController {
         return articleService.findById(id);
     }
 
-    @ApiOperation("根据id置顶文章")
+    @ApiOperation("根据id修改文章置顶状态")
     @GetMapping("/top/{id}/{isTop}")
     public void top(@PathVariable("id") Long id, @PathVariable("isTop") Integer isTop) {
         articleService.top(id, isTop);
+    }
+
+    @ApiOperation("根据id修改文章推荐状态")
+    @GetMapping("/featured/{id}/{isFeatured}")
+    public void featured(@PathVariable("id") Long id, @PathVariable("isFeatured") Integer isFeatured) {
+        articleService.featured(id, isFeatured);
     }
 
 }

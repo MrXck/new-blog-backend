@@ -23,4 +23,6 @@ public interface ArticleService extends IService<Article> {
     Article checkAndGetArticle(Long id);
 
     void top(Long id, Integer isTop);
+
+    void featured(Long id, Integer isFeatured);
 }
