@@ -21,6 +21,12 @@ public enum ArticleEnum {
     NOT_TOP(0, "未置顶"),
 
     /**
+     * 推荐状态
+     */
+    FEATURED(1, "推荐"),
+    NOT_FEATURED(0, "未推荐"),
+
+    /**
      * 删除
      */
     DELETE(1, "删除"),

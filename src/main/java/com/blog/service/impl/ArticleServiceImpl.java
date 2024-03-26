@@ -148,7 +148,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public void featured(Long id, Integer isFeatured) {
-        if (!ArticleEnum.TOP.getCode().equals(isFeatured) && !ArticleEnum.NOT_TOP.getCode().equals(isFeatured)) {
+        if (!ArticleEnum.FEATURED.getCode().equals(isFeatured) && !ArticleEnum.NOT_FEATURED.getCode().equals(isFeatured)) {
             throw new APIException(ArticleErrorEnum.IS_FEATURED_ERROR.getValue());
         }
         LambdaUpdateWrapper<Article> updateWrapper = new LambdaUpdateWrapper<>();
