@@ -2,8 +2,8 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.blog.dto.articleTag.ArticleTagDTO;
-import com.blog.dto.articleTag.SaveDTO;
+import com.blog.model.dto.articleTag.ArticleTagDTO;
+import com.blog.model.dto.articleTag.SaveDTO;
 import com.blog.mapper.ArticleTagMapper;
 import com.blog.pojo.ArticleTag;
 import com.blog.pojo.Tag;

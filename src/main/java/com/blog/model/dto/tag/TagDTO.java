@@ -1,4 +1,4 @@
-package com.blog.dto.tag;
+package com.blog.model.dto.tag;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.pojo.Tag;

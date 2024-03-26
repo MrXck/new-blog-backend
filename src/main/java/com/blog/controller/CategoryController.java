@@ -1,9 +1,9 @@
 package com.blog.controller;
 
-import com.blog.dto.PageDTO;
-import com.blog.dto.category.AddDTO;
-import com.blog.dto.category.CategoryDTO;
-import com.blog.dto.category.UpdateDTO;
+import com.blog.model.dto.PageDTO;
+import com.blog.model.dto.category.AddDTO;
+import com.blog.model.dto.category.CategoryDTO;
+import com.blog.model.dto.category.UpdateDTO;
 import com.blog.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

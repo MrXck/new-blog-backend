@@ -1,4 +1,4 @@
-package com.blog.dto.category;
+package com.blog.model.dto.category;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.pojo.Category;

@@ -2,9 +2,9 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.blog.dto.user.LoginDTO;
-import com.blog.dto.user.RegisterDTO;
-import com.blog.dto.user.UserDTO;
+import com.blog.model.dto.user.LoginDTO;
+import com.blog.model.dto.user.RegisterDTO;
+import com.blog.model.dto.user.UserDTO;
 import com.blog.enums.UserEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.UserMapper;

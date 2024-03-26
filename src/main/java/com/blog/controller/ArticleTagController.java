@@ -1,7 +1,7 @@
 package com.blog.controller;
 
-import com.blog.dto.articleTag.ArticleTagDTO;
-import com.blog.dto.articleTag.SaveDTO;
+import com.blog.model.dto.articleTag.ArticleTagDTO;
+import com.blog.model.dto.articleTag.SaveDTO;
 import com.blog.service.ArticleTagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,8 +1,8 @@
 package com.blog.controller;
 
-import com.blog.dto.user.LoginDTO;
-import com.blog.dto.user.RegisterDTO;
-import com.blog.dto.user.UserDTO;
+import com.blog.model.dto.user.LoginDTO;
+import com.blog.model.dto.user.RegisterDTO;
+import com.blog.model.dto.user.UserDTO;
 import com.blog.service.UserService;
 import com.blog.utils.NoAuthorization;
 import io.swagger.annotations.Api;

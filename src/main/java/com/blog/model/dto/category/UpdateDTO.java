@@ -1,4 +1,4 @@
-package com.blog.dto.category;
+package com.blog.model.dto.category;
 
 import lombok.Data;
 

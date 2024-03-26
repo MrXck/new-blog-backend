@@ -1,4 +1,4 @@
-package com.blog.dto.category;
+package com.blog.model.dto.tag;
 
 import lombok.Data;
 
@@ -7,6 +7,6 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class AddDTO {
 
-    @NotEmpty(message = "分类名称不能为空")
+    @NotEmpty(message = "标签名不能为空")
     private String name;
 }
