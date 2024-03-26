@@ -11,11 +11,31 @@
                a.status,
                a.type,
                a.create_time,
-               c.name
+               c.name as category_name
+        from article a
+                 left join category c on a.category_id = c.id
+        where a.title like concat('%', #{keyword}, '%') and is_delete = 0
+        ORDER BY create_time
+            limit #{pageNum}
+               , #{pageSize}
+    </select>
+
+    <select id="getByPageAdmin" resultType="com.blog.model.vo.ArticleVO">
+        select a.id,
+               a.cover,
+               a.title,
+               a.digest,
+               a.is_top,
+               a.is_featured,
+               a.status,
+               a.type,
+               a.create_time,
+               c.name as category_name
         from article a
                  left join category c on a.category_id = c.id
         where a.title like concat('%', #{keyword}, '%')
+        ORDER BY create_time
             limit #{pageNum}
-            , #{pageSize}
+               , #{pageSize}
     </select>
 </mapper>

@@ -2,38 +2,54 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.blog.enums.ArticleEnum;
+import com.blog.exception.APIException;
+import com.blog.mapper.ArticleMapper;
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.article.AddDTO;
 import com.blog.model.dto.article.ArticleDTO;
 import com.blog.model.dto.article.UpdateDTO;
-import com.blog.enums.ArticleEnum;
-import com.blog.exception.APIException;
+import com.blog.model.vo.ArticleVO;
 import com.blog.pojo.Article;
-import com.blog.mapper.ArticleMapper;
 import com.blog.service.ArticleService;
+import com.blog.service.ArticleTagService;
 import com.blog.utils.UserThreadLocal;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
+
+    @Autowired
+    @Lazy
+    private ArticleTagService articleTagService;
+
     @Override
     public ArticleDTO getByPage(PageDTO dto) {
-        Page<Article> page = new Page<>(dto.getPageNum(), dto.getPageSize());
-
         String keyword = dto.getKeyword();
+        ArticleDTO articleDTO = new ArticleDTO();
+
+        List<ArticleVO> articleVOS = this.baseMapper.getByPage(keyword, (dto.getPageNum() - 1) * 10, dto.getPageSize());
+        Set<Long> articleIds = new HashSet<>();
+        for (ArticleVO articleVO : articleVOS) {
+            articleIds.add(articleVO.getId());
+        }
 
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(Article::getTitle, keyword);
-        queryWrapper.eq(Article::getIsDelete, ArticleEnum.NOT_DELETE.getCode());
-        queryWrapper.select(Article.class, i -> !"content".equals(i.getColumn()));
-        queryWrapper.orderByDesc(Article::getUpdateTime);
-        queryWrapper.orderByDesc(Article::getCreateTime);
-        ArticleDTO articleDTO = new ArticleDTO();
-        articleDTO.setPage(this.page(page, queryWrapper));
+        articleDTO.setCount(this.count(queryWrapper));
+        articleDTO.setArticleTagVOS(articleTagService.getTagListByArticleIds(articleIds));
+
+        articleDTO.setArticleVOS(articleVOS);
+
         return articleDTO;
     }
 
@@ -69,15 +85,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public ArticleDTO getByPageAdmin(PageDTO dto) {
-        Page<Article> page = new Page<>(dto.getPageNum(), dto.getPageSize());
         String keyword = dto.getKeyword();
+        ArticleDTO articleDTO = new ArticleDTO();
+
+        List<ArticleVO> articleVOS = this.baseMapper.getByPageAdmin(keyword, (dto.getPageNum() - 1) * 10, dto.getPageSize());
+
+        Set<Long> articleIds = new HashSet<>();
+        for (ArticleVO articleVO : articleVOS) {
+            articleIds.add(articleVO.getId());
+        }
+
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(Article::getTitle, keyword);
-        queryWrapper.select(Article.class, i -> !"content".equals(i.getColumn()));
-        queryWrapper.orderByDesc(Article::getUpdateTime);
-        queryWrapper.orderByDesc(Article::getCreateTime);
-        ArticleDTO articleDTO = new ArticleDTO();
-        articleDTO.setPage(this.page(page, queryWrapper));
+        articleDTO.setCount(this.count(queryWrapper));
+        articleDTO.setArticleTagVOS(articleTagService.getTagListByArticleIds(articleIds));
+
+        articleDTO.setArticleVOS(articleVOS);
+
         return articleDTO;
     }
 

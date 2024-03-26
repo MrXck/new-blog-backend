@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.model.dto.articleTag.ArticleTagDTO;
 import com.blog.model.dto.articleTag.SaveDTO;
 import com.blog.mapper.ArticleTagMapper;
+import com.blog.model.vo.ArticleTagVO;
 import com.blog.pojo.ArticleTag;
 import com.blog.pojo.Tag;
 import com.blog.service.ArticleService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -80,5 +82,13 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
         LambdaQueryWrapper<ArticleTag> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ArticleTag::getTagId, tagId);
         this.remove(queryWrapper);
+    }
+
+    @Override
+    public List<ArticleTagVO> getTagListByArticleIds(Collection<Long> articleIds) {
+        if (articleIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return this.baseMapper.getTagListByArticleIds(articleIds);
     }
 }
