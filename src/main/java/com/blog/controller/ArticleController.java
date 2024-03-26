@@ -56,4 +56,10 @@ public class ArticleController {
         return articleService.findById(id);
     }
 
+    @ApiOperation("根据id置顶文章")
+    @GetMapping("/top/{id}/{isTop}")
+    public void top(@PathVariable("id") Long id, @PathVariable("isTop") Integer isTop) {
+        articleService.top(id, isTop);
+    }
+
 }

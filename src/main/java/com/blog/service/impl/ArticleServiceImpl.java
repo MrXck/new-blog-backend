@@ -3,7 +3,8 @@ package com.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.blog.enums.ArticleEnum;
+import com.blog.enums.article.ArticleEnum;
+import com.blog.enums.article.ArticleErrorEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.ArticleMapper;
 import com.blog.model.dto.PageDTO;
@@ -130,8 +131,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public Article checkAndGetArticle(Long id) {
         Article article = this.getById(id);
         if (article == null) {
-            throw new APIException("该文章不存在");
+            throw new APIException(ArticleErrorEnum.ARTICLE_NOT_EXIST.getValue());
         }
         return article;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void top(Long id, Integer isTop) {
+        if (!ArticleEnum.TOP.getCode().equals(isTop) && !ArticleEnum.NOT_TOP.getCode().equals(isTop)) {
+            throw new APIException(ArticleErrorEnum.IS_TOP_ERROR.getValue());
+        }
+        LambdaUpdateWrapper<Article> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(Article::getId, id);
+        updateWrapper.set(Article::getIsTop, isTop);
+        this.update(updateWrapper);
     }
 }

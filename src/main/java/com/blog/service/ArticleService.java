@@ -21,4 +21,6 @@ public interface ArticleService extends IService<Article> {
     ArticleDTO findById(Long id);
 
     Article checkAndGetArticle(Long id);
+
+    void top(Long id, Integer isTop);
 }
