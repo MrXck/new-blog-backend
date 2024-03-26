@@ -1,4 +1,4 @@
-package com.blog.enums;
+package com.blog.enums.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

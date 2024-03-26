@@ -7,7 +7,7 @@ import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.category.AddDTO;
 import com.blog.model.dto.category.CategoryDTO;
 import com.blog.model.dto.category.UpdateDTO;
-import com.blog.enums.CategoryEnum;
+import com.blog.enums.category.CategoryEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.CategoryMapper;
 import com.blog.pojo.Category;

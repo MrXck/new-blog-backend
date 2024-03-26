@@ -3,7 +3,7 @@ package com.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.blog.enums.TagEnum;
+import com.blog.enums.tag.TagEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.TagMapper;
 import com.blog.model.dto.PageDTO;

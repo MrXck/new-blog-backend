@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.model.dto.user.LoginDTO;
 import com.blog.model.dto.user.RegisterDTO;
 import com.blog.model.dto.user.UserDTO;
-import com.blog.enums.UserEnum;
+import com.blog.enums.user.UserEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.UserMapper;
 import com.blog.pojo.User;
