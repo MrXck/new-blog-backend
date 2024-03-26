@@ -1,10 +1,12 @@
 package com.blog.controller;
 
 import com.blog.exception.APIException;
+import com.blog.service.PhotoService;
 import com.blog.utils.Constant;
 import com.blog.utils.NoAuthorization;
 import com.blog.utils.NotControllerResponseAdvice;
 import com.blog.utils.UserThreadLocal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +19,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/file")
 public class FileController {
+
+    @Autowired
+    private PhotoService photoService;
 
     @PostMapping(value = "/uploadImage")
     @NotControllerResponseAdvice
@@ -39,6 +44,9 @@ public class FileController {
 
             String path = UserThreadLocal.get().toString() + "_" + UUID.randomUUID() + "." + split[1];
             multipartFile.transferTo(new File(Constant.PATH + path));
+
+            photoService.add("/file/download/" + path);
+
             return "/file/download/" + path;
         } catch (Exception e) {
             throw new APIException("文件上传失败");

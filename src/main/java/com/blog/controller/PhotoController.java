@@ -1,9 +1,7 @@
 package com.blog.controller;
 
 import com.blog.model.dto.PageDTO;
-import com.blog.model.dto.photo.AddDTO;
 import com.blog.model.dto.photo.PhotoDTO;
-import com.blog.model.dto.photo.UpdateDTO;
 import com.blog.service.PhotoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,22 +24,10 @@ public class PhotoController {
         return photoService.getByPage(dto);
     }
 
-    @ApiOperation("添加Photo")
-    @PostMapping("/add")
-    public void add(@RequestBody @Valid AddDTO dto) {
-        photoService.add(dto);
-    }
-
     @ApiOperation("删除Photo")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         photoService.deleteById(id);
-    }
-
-    @ApiOperation("修改Photo")
-    @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateDTO dto) {
-        photoService.edit(dto);
     }
 
     @ApiOperation("获取所有Photo")
