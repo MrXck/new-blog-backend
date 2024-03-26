@@ -17,7 +17,9 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
     @Override
     public PhotoDTO getByPage(PageDTO dto) {
         Page<Photo> page = new Page<>(dto.getPageNum(), dto.getPageSize());
+        String keyword = dto.getKeyword();
         LambdaQueryWrapper<Photo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(Photo::getName, keyword);
         queryWrapper.orderByDesc(Photo::getCreateTime);
         PhotoDTO photoDTO = new PhotoDTO();
         photoDTO.setPage(this.page(page, queryWrapper));
@@ -45,8 +47,9 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
     }
 
     @Override
-    public void add(String path) {
+    public void add(String name, String path) {
         Photo photo = new Photo();
+        photo.setName(name);
         photo.setPath(path);
         photo.setSrc(path);
         this.save(photo);

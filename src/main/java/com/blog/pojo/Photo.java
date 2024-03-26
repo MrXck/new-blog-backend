@@ -13,6 +13,8 @@ public class Photo {
 
     private String src;
 
+    private String name;
+
     private Long photoAlbumId;
 
     private String path;

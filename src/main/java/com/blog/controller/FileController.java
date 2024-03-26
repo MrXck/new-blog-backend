@@ -45,7 +45,7 @@ public class FileController {
             String path = UserThreadLocal.get().toString() + "_" + UUID.randomUUID() + "." + split[1];
             multipartFile.transferTo(new File(Constant.PATH + path));
 
-            photoService.add("/file/download/" + path);
+            photoService.add(multipartFile.getOriginalFilename(), "/file/download/" + path);
 
             return "/file/download/" + path;
         } catch (Exception e) {

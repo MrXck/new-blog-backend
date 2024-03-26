@@ -15,5 +15,5 @@ public interface PhotoService extends IService<Photo> {
 
     PhotoDTO all();
 
-    void add(String path);
+    void add(String name, String path);
 }
