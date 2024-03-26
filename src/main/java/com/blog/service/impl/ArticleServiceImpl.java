@@ -78,10 +78,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
-        LambdaUpdateWrapper<Article> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.eq(Article::getUserId, UserThreadLocal.get());
-        updateWrapper.set(Article::getIsDelete, ArticleEnum.DELETE.getCode());
-        this.update(updateWrapper);
+        articleTagService.deleteByArticleId(id);
+        this.removeById(id);
     }
 
     @Override
