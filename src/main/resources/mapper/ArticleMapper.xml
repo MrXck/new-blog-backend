@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.ArticleMapper">
+    <select id="getByPage" resultType="com.blog.model.vo.ArticleVO">
+        select a.id,
+               a.cover,
+               a.title,
+               a.digest,
+               a.is_top,
+               a.is_featured,
+               a.status,
+               a.type,
+               a.create_time,
+               c.name
+        from article a
+                 left join category c on a.category_id = c.id
+        where a.title like concat('%', #{keyword}, '%')
+            limit #{pageNum}
+            , #{pageSize}
+    </select>
+</mapper>
