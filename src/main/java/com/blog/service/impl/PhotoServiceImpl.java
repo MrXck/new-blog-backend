@@ -20,6 +20,7 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
         String keyword = dto.getKeyword();
         LambdaQueryWrapper<Photo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(Photo::getName, keyword);
+        queryWrapper.isNull(Photo::getPhotoAlbumId);
         queryWrapper.orderByDesc(Photo::getCreateTime);
         PhotoDTO photoDTO = new PhotoDTO();
         photoDTO.setPage(this.page(page, queryWrapper));
