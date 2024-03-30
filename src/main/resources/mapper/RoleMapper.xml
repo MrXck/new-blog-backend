@@ -22,4 +22,11 @@
         where re.parent_id is not null
           and is_anonymous = 0;
     </select>
+
+    <select id="getRoles" resultType="java.lang.String">
+        select *
+        from role r
+                 left join user_role ur on r.id = ur.role_id
+        where ur.user_id = #{userId}
+    </select>
 </mapper>
