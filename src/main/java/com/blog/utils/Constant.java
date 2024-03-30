@@ -15,9 +15,9 @@ public class Constant {
     public static final String LOGIN_ERROR = "用户名或密码错误";
     public static final String USERNAME_ALREADY_ERROR = "用户名已存在";
 
-    public static final String DATE_FORMAT = "yyyy-MM";
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd";
+    public static final String REDIS_USER_KEY = "user";
 
-    public static final String QUARTZ_TASK_PATH = "com.todo.task.AutomaticTask";
+    public static final Long TOKEN_DEFAULT_EXPIRE_TIME = 7 * 24 * 60 * 60L;
+
 
 }

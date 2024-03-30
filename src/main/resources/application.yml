@@ -24,6 +24,17 @@ spring:
     username: 1111
     password: 1111
     protocol: smtp
+  redis:
+    host: 192.168.101.65
+    port: 6379
+    password: 123
+    database: 1
+    lettuce:
+      pool:
+        min-idle: 10
+        max-idle: 100
+        max-active: 100
+        max-wait: 10000
 mybatis-plus:
   configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

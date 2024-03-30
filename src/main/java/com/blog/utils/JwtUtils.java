@@ -47,6 +47,12 @@ public class JwtUtils {
                 .compact();
     }
 
+    public String createToken(String id) {
+        Map<String, Object> claims = new HashMap<>(16);
+        claims.put("userId", id);
+        return createToken(claims, 720);
+    }
+
     /**
      * 校验token
      *

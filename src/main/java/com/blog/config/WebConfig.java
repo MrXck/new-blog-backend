@@ -27,6 +27,6 @@ public class WebConfig implements WebMvcConfigurer {
                 "/swagger*/**",
         };
         registry.addInterceptor(new RateLimitInterceptor()).addPathPatterns(path).excludePathPatterns(exclude);
-        registry.addInterceptor(this.tokenInterceptor).addPathPatterns(path).excludePathPatterns(exclude);
+//        registry.addInterceptor(this.tokenInterceptor).addPathPatterns(path).excludePathPatterns(exclude);
     }
 }
