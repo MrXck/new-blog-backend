@@ -1,8 +1,9 @@
 package com.blog.interceptor;
 
-import cn.hutool.json.JSONUtil;
 import com.blog.common.R;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.util.concurrent.RateLimiter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -16,6 +17,9 @@ public class RateLimitInterceptor implements HandlerInterceptor {
     private final double permitsPerSecond = 10;
     private final RateLimiter limiter = RateLimiter.create(permitsPerSecond);
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (limiter.tryAcquire(1, 1, TimeUnit.SECONDS)) {
@@ -24,7 +28,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
         } else {
             // 令牌桶中没有足够的令牌，限流处理
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(JSONUtil.toJsonStr(R.error("rate limit exceeded")));
+            response.getWriter().write(objectMapper.writeValueAsString(R.error("rate limit exceeded")));
             return false;
         }
     }

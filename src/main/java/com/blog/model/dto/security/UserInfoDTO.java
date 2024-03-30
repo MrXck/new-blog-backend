@@ -4,7 +4,9 @@ import com.blog.pojo.User;
 import lombok.Data;
 
 @Data
-public class UserInfoDTO extends User {
+public class UserInfoDTO {
+
+    private User user;
 
     private String token;
 }
