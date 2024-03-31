@@ -3,6 +3,7 @@ package com.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.blog.enums.role.RoleEnum;
 import com.blog.mapper.RoleMapper;
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.role.AddDTO;
@@ -35,6 +36,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public void add(AddDTO dto) {
         Role role = new Role();
         BeanUtils.copyProperties(dto, role);
+        role.setIsDisable(RoleEnum.NORMAL.getCode());
         this.save(role);
     }
 
