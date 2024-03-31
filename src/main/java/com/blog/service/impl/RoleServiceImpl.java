@@ -10,7 +10,6 @@ import com.blog.model.dto.role.RoleDTO;
 import com.blog.model.dto.role.UpdateDTO;
 import com.blog.pojo.Role;
 import com.blog.service.RoleService;
-import com.blog.utils.UserThreadLocal;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -10,7 +10,6 @@ import com.blog.model.dto.menu.MenuDTO;
 import com.blog.model.dto.menu.UpdateDTO;
 import com.blog.pojo.Menu;
 import com.blog.service.MenuService;
-import com.blog.utils.UserThreadLocal;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
