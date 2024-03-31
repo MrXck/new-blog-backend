@@ -15,7 +15,7 @@
         select re.id as id,
                path,
                method,
-               ro.name
+               ro.name as role_name
         from resource re
                  left join role_resource rr on re.id = rr.resource_id
                  left join role ro on rr.role_id = ro.id
