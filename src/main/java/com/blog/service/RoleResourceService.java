@@ -9,4 +9,6 @@ public interface RoleResourceService extends IService<RoleResource> {
     RoleResourceDTO all();
 
     RoleResourceDTO findByRoleId(Long roleId);
+
+    RoleResourceDTO getResourcesByRoleId(Long roleId);
 }

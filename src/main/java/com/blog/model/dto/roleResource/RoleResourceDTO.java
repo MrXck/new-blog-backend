@@ -1,6 +1,7 @@
 package com.blog.model.dto.roleResource;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blog.pojo.Resource;
 import com.blog.pojo.RoleResource;
 import lombok.Data;
 
@@ -14,5 +15,7 @@ public class RoleResourceDTO {
     private RoleResource roleResource;
 
     private List<RoleResource> roleResources;
+
+    private List<Resource> resources;
 
 }

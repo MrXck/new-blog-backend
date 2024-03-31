@@ -27,4 +27,11 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
         return roleResourceDTO;
     }
 
+    @Override
+    public RoleResourceDTO getResourcesByRoleId(Long roleId) {
+        RoleResourceDTO roleResourceDTO = new RoleResourceDTO();
+        roleResourceDTO.setResources(baseMapper.getResourcesByRoleId(roleId));
+        return roleResourceDTO;
+    }
+
 }

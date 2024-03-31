@@ -30,4 +30,9 @@ public class RoleResourceController {
         return roleResourceService.findByRoleId(roleId);
     }
 
+    @ApiOperation("根据角色id获取该角色下的所有Resource")
+    @GetMapping("/resource/{roleId}")
+    public RoleResourceDTO getResourcesByRoleId(@PathVariable("roleId") Long roleId) {
+        return roleResourceService.getResourcesByRoleId(roleId);
+    }
 }
