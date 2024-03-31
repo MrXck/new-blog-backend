@@ -1,9 +1,12 @@
 package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.enums.role.RoleEnum;
+import com.blog.enums.role.RoleErrorEnum;
+import com.blog.exception.APIException;
 import com.blog.mapper.RoleMapper;
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.role.AddDTO;
@@ -66,6 +69,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setRoles(this.list());
         return roleDTO;
+    }
+
+    @Override
+    public void disable(Long id, Integer isDisable) {
+        if (!RoleEnum.DISABLE.getCode().equals(isDisable) && !RoleEnum.NORMAL.getCode().equals(isDisable)) {
+            throw new APIException(RoleErrorEnum.IS_DISABLE_ERROR.getValue());
+        }
+        LambdaUpdateWrapper<Role> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(Role::getId, id);
+        updateWrapper.set(Role::getIsDisable, isDisable);
+        this.update(updateWrapper);
     }
 
 }

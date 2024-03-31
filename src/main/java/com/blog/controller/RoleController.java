@@ -56,4 +56,10 @@ public class RoleController {
         return roleService.findById(id);
     }
 
+    @ApiOperation("修改角色是否禁用")
+    @GetMapping("/disable/{id}/{isDisable}")
+    public void disable(@PathVariable("id") Long id, @PathVariable("isDisable") Integer isDisable) {
+        roleService.disable(id, isDisable);
+    }
+
 }

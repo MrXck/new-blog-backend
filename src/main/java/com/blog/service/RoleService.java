@@ -21,4 +21,5 @@ public interface RoleService extends IService<Role> {
 
     RoleDTO all();
 
+    void disable(Long id, Integer isDisable);
 }
