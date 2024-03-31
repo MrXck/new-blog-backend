@@ -3,8 +3,8 @@
 <mapper namespace="com.blog.mapper.RoleMapper">
     <resultMap id="resourceRoleResultMap" type="com.blog.model.dto.security.ResourceRoleDTO">
         <id property="id" column="id"/>
-        <result property="path" column="url"/>
-        <result property="method" column="request_method"/>
+        <result property="path" column="path"/>
+        <result property="method" column="method"/>
         <collection property="roles" ofType="java.lang.String">
             <constructor>
                 <arg column="role_name"/>
