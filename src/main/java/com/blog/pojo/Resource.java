@@ -17,7 +17,7 @@ public class Resource {
 
     private String method;
 
-    private Integer isDisable;
+    private Integer isAnonymous;
 
     private Long parentId;
 
