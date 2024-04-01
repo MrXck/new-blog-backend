@@ -3,7 +3,7 @@
 <mapper namespace="com.blog.mapper.RoleResourceMapper">
 
 <select id="getResourcesByRoleId" resultType="com.blog.pojo.Resource">
-    select * from role_resource rr left join resource r on rr.resource_id = r.id where rr.role_id = #{roleId}
+    select r.* from role_resource rr left join resource r on rr.resource_id = r.id where rr.role_id = #{roleId} order by r.create_time desc
 </select>
 
 </mapper>
