@@ -1,7 +1,8 @@
 package com.blog.controller;
 
 import com.blog.model.dto.PageDTO;
-import com.blog.model.dto.resource.AddDTO;
+import com.blog.model.dto.resource.AddResourceDTO;
+import com.blog.model.dto.resource.AddResourceParentDTO;
 import com.blog.model.dto.resource.ResourceDTO;
 import com.blog.model.dto.resource.UpdateDTO;
 import com.blog.service.ResourceService;
@@ -27,9 +28,15 @@ public class ResourceController {
     }
 
     @ApiOperation("添加Resource")
-    @PostMapping("/add")
-    public void add(@RequestBody @Valid AddDTO dto) {
+    @PostMapping("/addResource")
+    public void addResource(@RequestBody @Valid AddResourceDTO dto) {
         resourceService.add(dto);
+    }
+
+    @ApiOperation("添加Resource模块")
+    @PostMapping("/addResourceParent")
+    public void addResourceParent(@RequestBody @Valid AddResourceParentDTO dto) {
+        resourceService.addResourceParent(dto);
     }
 
     @ApiOperation("删除Resource")
