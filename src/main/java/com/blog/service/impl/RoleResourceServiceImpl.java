@@ -8,6 +8,9 @@ import com.blog.pojo.RoleResource;
 import com.blog.service.RoleResourceService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, RoleResource> implements RoleResourceService {
 
@@ -32,6 +35,18 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
         RoleResourceDTO roleResourceDTO = new RoleResourceDTO();
         roleResourceDTO.setResources(baseMapper.getResourcesByRoleId(roleId));
         return roleResourceDTO;
+    }
+
+    @Override
+    public void saveResourceByRoleId(Long roleId, List<Long> resourceIds) {
+        List<RoleResource> roleResources = new ArrayList<>();
+        for (Long resourceId : resourceIds) {
+            RoleResource roleResource = new RoleResource();
+            roleResource.setResourceId(resourceId);
+            roleResource.setRoleId(roleId);
+            roleResources.add(roleResource);
+        }
+        this.saveBatch(roleResources);
     }
 
 }

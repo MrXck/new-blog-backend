@@ -13,13 +13,18 @@ import com.blog.model.dto.role.AddDTO;
 import com.blog.model.dto.role.RoleDTO;
 import com.blog.model.dto.role.UpdateDTO;
 import com.blog.pojo.Role;
+import com.blog.service.RoleResourceService;
 import com.blog.service.RoleService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
+
+    @Autowired
+    private RoleResourceService roleResourceService;
 
     @Override
     public RoleDTO getByPage(PageDTO dto) {
@@ -41,6 +46,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         BeanUtils.copyProperties(dto, role);
         role.setIsDisable(RoleEnum.NORMAL.getCode());
         this.save(role);
+
+        roleResourceService.saveResourceByRoleId(role.getId(), dto.getResourceIds());
     }
 
     @Override

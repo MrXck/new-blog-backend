@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.blog.model.dto.roleResource.RoleResourceDTO;
 import com.blog.pojo.RoleResource;
 
+import java.util.List;
+
 public interface RoleResourceService extends IService<RoleResource> {
 
     RoleResourceDTO all();
@@ -11,4 +13,7 @@ public interface RoleResourceService extends IService<RoleResource> {
     RoleResourceDTO findByRoleId(Long roleId);
 
     RoleResourceDTO getResourcesByRoleId(Long roleId);
+
+    void saveResourceByRoleId(Long roleId, List<Long> resourceIds);
+
 }
