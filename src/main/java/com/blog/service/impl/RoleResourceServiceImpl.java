@@ -7,6 +7,7 @@ import com.blog.model.dto.roleResource.RoleResourceDTO;
 import com.blog.pojo.RoleResource;
 import com.blog.service.RoleResourceService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,25 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveResourceByRoleId(Long roleId, List<Long> resourceIds) {
+        List<RoleResource> roleResources = new ArrayList<>();
+        for (Long resourceId : resourceIds) {
+            RoleResource roleResource = new RoleResource();
+            roleResource.setResourceId(resourceId);
+            roleResource.setRoleId(roleId);
+            roleResources.add(roleResource);
+        }
+        this.saveBatch(roleResources);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateResourceByRoleId(Long roleId, List<Long> resourceIds) {
+        LambdaQueryWrapper<RoleResource> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RoleResource::getRoleId, roleId);
+        this.remove(queryWrapper);
+
         List<RoleResource> roleResources = new ArrayList<>();
         for (Long resourceId : resourceIds) {
             RoleResource roleResource = new RoleResource();

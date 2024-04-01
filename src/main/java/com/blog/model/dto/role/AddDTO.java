@@ -12,7 +12,7 @@ public class AddDTO {
     @NotEmpty(message = "name不能为空")
     private String name;
 
-    @NotNull
+    @NotNull(message = "资源id不能为空")
     private List<Long> resourceIds;
 
 }

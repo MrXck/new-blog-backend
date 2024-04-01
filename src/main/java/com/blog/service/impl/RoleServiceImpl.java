@@ -62,6 +62,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         Role role = new Role();
         BeanUtils.copyProperties(dto, role);
         this.updateById(role);
+        roleResourceService.updateResourceByRoleId(role.getId(), dto.getResourceIds());
     }
 
     @Override
