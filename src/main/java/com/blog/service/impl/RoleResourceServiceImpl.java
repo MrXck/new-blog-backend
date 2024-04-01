@@ -68,4 +68,12 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
         this.saveBatch(roleResources);
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteResourceByRoleId(Long roleId) {
+        LambdaQueryWrapper<RoleResource> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RoleResource::getRoleId, roleId);
+        this.remove(queryWrapper);
+    }
+
 }

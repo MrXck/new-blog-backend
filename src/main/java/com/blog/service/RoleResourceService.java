@@ -17,4 +17,6 @@ public interface RoleResourceService extends IService<RoleResource> {
     void saveResourceByRoleId(Long roleId, List<Long> resourceIds);
 
     void updateResourceByRoleId(Long roleId, List<Long> resourceIds);
+
+    void deleteResourceByRoleId(Long roleId);
 }

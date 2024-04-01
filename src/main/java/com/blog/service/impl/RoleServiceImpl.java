@@ -42,6 +42,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(AddDTO dto) {
+        String name = dto.getName();
+
+        LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Role::getName, name);
+        if (this.count(queryWrapper) > 0) {
+            throw new APIException(RoleErrorEnum.CREATE_ROLE_ERROR.getValue());
+        }
+
         Role role = new Role();
         BeanUtils.copyProperties(dto, role);
         role.setIsDisable(RoleEnum.NORMAL.getCode());
@@ -54,6 +62,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         this.removeById(id);
+        roleResourceService.deleteResourceByRoleId(id);
     }
 
     @Override
