@@ -1,10 +1,7 @@
 package com.blog.controller;
 
 import com.blog.model.dto.PageDTO;
-import com.blog.model.dto.resource.AddResourceDTO;
-import com.blog.model.dto.resource.AddResourceParentDTO;
-import com.blog.model.dto.resource.ResourceDTO;
-import com.blog.model.dto.resource.UpdateDTO;
+import com.blog.model.dto.resource.*;
 import com.blog.service.ResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,10 +42,22 @@ public class ResourceController {
         resourceService.deleteById(id);
     }
 
+    @ApiOperation("删除Resource模块")
+    @DeleteMapping("/parent/{id}")
+    public void deleteParent(@PathVariable("id") Long id) {
+        resourceService.deleteParentById(id);
+    }
+
     @ApiOperation("修改Resource")
     @PutMapping("/update")
     public void update(@RequestBody @Valid UpdateDTO dto) {
         resourceService.edit(dto);
+    }
+
+    @ApiOperation("修改Resource模块")
+    @PutMapping("/updateParent")
+    public void updateParent(@RequestBody @Valid UpdateParentDTO dto) {
+        resourceService.editParent(dto);
     }
 
     @ApiOperation("获取所有Resource")
@@ -61,6 +70,12 @@ public class ResourceController {
     @GetMapping("/{id}")
     public ResourceDTO getById(@PathVariable("id") Long id) {
         return resourceService.findById(id);
+    }
+
+    @ApiOperation("修改resource的匿名状态")
+    @GetMapping("/anonymous/{id}/{anonymous}")
+    public void updateAnonymous(@PathVariable("id") Long id, @PathVariable("anonymous") Integer anonymous) {
+        resourceService.updateAnonymous(id, anonymous);
     }
 
 }

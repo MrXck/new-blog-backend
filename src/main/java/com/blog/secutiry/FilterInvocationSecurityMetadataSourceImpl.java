@@ -24,7 +24,7 @@ public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocat
     private static List<ResourceRoleDTO> resourceRoleList;
 
     @PostConstruct
-    private void loadResourceRoleList() {
+    public void loadResourceRoleList() {
         resourceRoleList = roleMapper.listResourceRoles();
     }
 

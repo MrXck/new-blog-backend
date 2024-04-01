@@ -2,10 +2,7 @@ package com.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.blog.model.dto.PageDTO;
-import com.blog.model.dto.resource.AddResourceDTO;
-import com.blog.model.dto.resource.AddResourceParentDTO;
-import com.blog.model.dto.resource.ResourceDTO;
-import com.blog.model.dto.resource.UpdateDTO;
+import com.blog.model.dto.resource.*;
 import com.blog.pojo.Resource;
 
 public interface ResourceService extends IService<Resource> {
@@ -23,4 +20,10 @@ public interface ResourceService extends IService<Resource> {
     ResourceDTO all();
 
     void addResourceParent(AddResourceParentDTO dto);
+
+    void editParent(UpdateParentDTO dto);
+
+    void deleteParentById(Long id);
+
+    void updateAnonymous(Long id, Integer anonymous);
 }
