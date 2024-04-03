@@ -26,6 +26,12 @@ public class RoleController {
         return roleService.getByPage(dto);
     }
 
+    @ApiOperation("获取所有Role")
+    @GetMapping("/all")
+    public RoleDTO all() {
+        return roleService.all();
+    }
+
     @ApiOperation("添加Role")
     @PostMapping("/add")
     public void add(@RequestBody @Valid AddDTO dto) {
