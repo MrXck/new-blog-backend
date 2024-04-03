@@ -1,15 +1,17 @@
 package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.enums.user.UserEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.UserMapper;
+import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.user.RegisterDTO;
+import com.blog.model.dto.user.UserDTO;
 import com.blog.pojo.User;
 import com.blog.service.UserService;
 import com.blog.utils.Constant;
-import com.blog.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,6 @@ import java.util.UUID;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-
-    @Autowired
-    private JwtUtils jwtUtils;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -46,6 +45,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setIsDisable(UserEnum.NORMAL.getCode());
         user.setLastLoginTime(LocalDateTime.now());
         this.save(user);
+    }
+
+    @Override
+    public UserDTO getByPage(PageDTO dto) {
+        Page<User> page = new Page<>(dto.getPageNum(), dto.getPageSize());
+        String keyword = dto.getKeyword();
+
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(User::getUsername, keyword);
+        queryWrapper.select(User.class, i -> !"password".equals(i.getColumn()));
+        queryWrapper.orderByDesc(User::getUpdateTime);
+        queryWrapper.orderByDesc(User::getCreateTime);
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setPage(this.page(page, queryWrapper));
+        return userDTO;
     }
 
 

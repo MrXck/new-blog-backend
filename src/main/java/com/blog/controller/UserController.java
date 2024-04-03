@@ -1,6 +1,8 @@
 package com.blog.controller;
 
+import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.user.RegisterDTO;
+import com.blog.model.dto.user.UserDTO;
 import com.blog.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +26,12 @@ public class UserController {
     @PostMapping("/register")
     public void register(@RequestBody @Valid RegisterDTO dto) {
         userService.register(dto);
+    }
+
+    @ApiOperation("分页获取标签")
+    @PostMapping("/page")
+    public UserDTO page(@RequestBody @Valid PageDTO dto) {
+        return userService.getByPage(dto);
     }
 
 }
