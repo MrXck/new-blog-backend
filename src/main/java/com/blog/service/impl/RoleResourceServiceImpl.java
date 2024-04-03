@@ -34,7 +34,10 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
     @Override
     public RoleResourceDTO getResourcesByRoleId(Long roleId) {
         RoleResourceDTO roleResourceDTO = new RoleResourceDTO();
-        roleResourceDTO.setResources(baseMapper.getResourcesByRoleId(roleId));
+        LambdaQueryWrapper<RoleResource> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RoleResource::getRoleId, roleId);
+        queryWrapper.select(RoleResource.class, i -> "resource_id".equals(i.getColumn()));
+        roleResourceDTO.setRoleResources(this.list(queryWrapper));
         return roleResourceDTO;
     }
 

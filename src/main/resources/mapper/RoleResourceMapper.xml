@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.blog.mapper.RoleResourceMapper">
-
-<select id="getResourcesByRoleId" resultType="com.blog.pojo.Resource">
-    select r.* from role_resource rr left join resource r on rr.resource_id = r.id where rr.role_id = #{roleId} order by r.create_time desc
-</select>
-
-</mapper>
