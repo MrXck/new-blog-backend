@@ -33,10 +33,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 查询用户信息
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername, s);
-        queryWrapper.eq(User::getIsDisable, UserEnum.NORMAL.getCode());
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
             throw new APIException("用户名或密码错误");
+        }
+
+        if (UserEnum.NORMAL.getCode().equals(user.getIsDisable())) {
+            throw new APIException("该用户已被禁用，请联系管理员");
         }
         // 查询对应的角色信息
         List<String> roles = roleMapper.getRoles(user.getId());
