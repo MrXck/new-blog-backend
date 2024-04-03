@@ -10,9 +10,11 @@ import com.blog.exception.APIException;
 import com.blog.mapper.UserMapper;
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.user.RegisterDTO;
+import com.blog.model.dto.user.UpdateDTO;
 import com.blog.model.dto.user.UserDTO;
 import com.blog.pojo.User;
 import com.blog.service.TokenService;
+import com.blog.service.UserRoleService;
 import com.blog.service.UserService;
 import com.blog.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -30,6 +33,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private UserRoleService userRoleService;
 
     @Override
     public void register(RegisterDTO dto) {
@@ -83,5 +89,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
+    @Override
+    public void edit(UpdateDTO dto) {
+        Long id = dto.getId();
+
+        if (this.getById(id) == null) {
+            throw new APIException(UserErrorEnum.NOT_FOUND_USER_ERROR.getValue());
+        }
+
+        String nickname = dto.getNickname();
+        List<Long> roleIds = dto.getRoleIds();
+
+        LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.set(User::getNickname, nickname);
+        updateWrapper.eq(User::getId, id);
+        this.update(updateWrapper);
+
+        userRoleService.updateByUserId(id, roleIds);
+    }
 
 }

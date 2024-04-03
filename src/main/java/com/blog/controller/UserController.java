@@ -2,6 +2,7 @@ package com.blog.controller;
 
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.user.RegisterDTO;
+import com.blog.model.dto.user.UpdateDTO;
 import com.blog.model.dto.user.UserDTO;
 import com.blog.service.UserService;
 import io.swagger.annotations.Api;
@@ -35,6 +36,12 @@ public class UserController {
     @GetMapping("/disable/{id}/{isDisable}")
     public void featured(@PathVariable("id") Long id, @PathVariable("isDisable") Integer isDisable) {
         userService.disable(id, isDisable);
+    }
+
+    @ApiOperation("根据id修改用户信息")
+    @PutMapping("/update")
+    public void update(@RequestBody @Valid UpdateDTO dto) {
+        userService.edit(dto);
     }
 
 }
