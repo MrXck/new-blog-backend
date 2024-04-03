@@ -2,6 +2,7 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.blog.enums.user.UserEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.RoleMapper;
 import com.blog.mapper.UserMapper;
@@ -32,6 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 查询用户信息
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername, s);
+        queryWrapper.eq(User::getIsDisable, UserEnum.NORMAL.getCode());
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
             throw new APIException("用户名或密码错误");
