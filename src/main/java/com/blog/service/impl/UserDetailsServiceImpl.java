@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new APIException("用户名或密码错误");
         }
 
-        if (UserEnum.NORMAL.getCode().equals(user.getIsDisable())) {
+        if (UserEnum.DISABLE.getCode().equals(user.getIsDisable())) {
             throw new APIException("该用户已被禁用，请联系管理员");
         }
         // 查询对应的角色信息
