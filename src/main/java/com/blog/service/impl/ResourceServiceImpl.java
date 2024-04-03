@@ -11,8 +11,10 @@ import com.blog.mapper.ResourceMapper;
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.resource.*;
 import com.blog.pojo.Resource;
+import com.blog.pojo.RoleResource;
 import com.blog.secutiry.FilterInvocationSecurityMetadataSourceImpl;
 import com.blog.service.ResourceService;
+import com.blog.service.RoleResourceService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     @Autowired
     private FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
+
+    @Autowired
+    private RoleResourceService roleResourceService;
 
     @Override
     public ResourceDTO getByPage(PageDTO dto) {
@@ -65,6 +70,12 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
+        LambdaQueryWrapper<RoleResource> roleResourceLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        roleResourceLambdaQueryWrapper.eq(RoleResource::getResourceId, id);
+        if (roleResourceService.count(roleResourceLambdaQueryWrapper) != 0) {
+            throw new APIException(ResourceErrorEnum.DELETE_RESOURCE_ERROR.getValue());
+        }
+
         this.removeById(id);
         filterInvocationSecurityMetadataSource.loadResourceRoleList();
     }
@@ -127,6 +138,12 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteParentById(Long id) {
+        LambdaQueryWrapper<RoleResource> roleResourceLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        roleResourceLambdaQueryWrapper.eq(RoleResource::getResourceId, id);
+        if (roleResourceService.count(roleResourceLambdaQueryWrapper) != 0) {
+            throw new APIException(ResourceErrorEnum.DELETE_RESOURCE_ERROR.getValue());
+        }
+
         this.removeById(id);
 
         LambdaQueryWrapper<Resource> queryWrapper = new LambdaQueryWrapper<>();

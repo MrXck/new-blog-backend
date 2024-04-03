@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.enums.role.RoleEnum;
 import com.blog.enums.role.RoleErrorEnum;
+import com.blog.enums.userRole.UserRoleEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.RoleMapper;
 import com.blog.model.dto.PageDTO;
@@ -13,8 +14,10 @@ import com.blog.model.dto.role.AddDTO;
 import com.blog.model.dto.role.RoleDTO;
 import com.blog.model.dto.role.UpdateDTO;
 import com.blog.pojo.Role;
+import com.blog.pojo.UserRole;
 import com.blog.service.RoleResourceService;
 import com.blog.service.RoleService;
+import com.blog.service.UserRoleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Autowired
     private RoleResourceService roleResourceService;
+
+    @Autowired
+    private UserRoleService userRoleService;
 
     @Override
     public RoleDTO getByPage(PageDTO dto) {
@@ -61,6 +67,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
+        LambdaQueryWrapper<UserRole> userRoleLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        userRoleLambdaQueryWrapper.eq(UserRole::getRoleId, id);
+        if (userRoleService.count(userRoleLambdaQueryWrapper) != 0) {
+            throw new APIException(UserRoleEnum.DELETE_ROLE_ERROR.getValue());
+        }
+
         this.removeById(id);
         roleResourceService.deleteResourceByRoleId(id);
     }
