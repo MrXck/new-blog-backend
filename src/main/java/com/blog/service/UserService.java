@@ -10,4 +10,6 @@ public interface UserService extends IService<User> {
     void register(RegisterDTO dto);
 
     UserDTO getByPage(PageDTO dto);
+
+    void disable(Long id, Integer isDisable);
 }

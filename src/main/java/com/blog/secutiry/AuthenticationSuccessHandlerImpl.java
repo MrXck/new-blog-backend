@@ -38,7 +38,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
         if (Objects.nonNull(authentication)) {
             UserDetailsDTO userDetailsDTO = (UserDetailsDTO) authentication.getPrincipal();
-            String token = tokenService.createToken(userDetailsDTO.getUser().getId().toString());
+            String token = tokenService.createToken(userDetailsDTO);
             userInfoDTO.setToken(token);
         }
         response.setContentType("application/json;charset=utf-8");

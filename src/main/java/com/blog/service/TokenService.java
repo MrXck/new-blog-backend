@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface TokenService {
 
-    String createToken(String id);
+    String createToken(UserDetailsDTO userDetailsDTO);
 
     void refreshToken(String id);
 

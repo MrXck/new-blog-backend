@@ -7,10 +7,7 @@ import com.blog.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -32,6 +29,12 @@ public class UserController {
     @PostMapping("/page")
     public UserDTO page(@RequestBody @Valid PageDTO dto) {
         return userService.getByPage(dto);
+    }
+
+    @ApiOperation("根据id修改用户禁用状态")
+    @GetMapping("/disable/{id}/{isDisable}")
+    public void featured(@PathVariable("id") Long id, @PathVariable("isDisable") Integer isDisable) {
+        userService.disable(id, isDisable);
     }
 
 }

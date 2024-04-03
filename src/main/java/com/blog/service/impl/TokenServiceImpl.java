@@ -22,8 +22,9 @@ public class TokenServiceImpl implements TokenService {
     private RedisService redisService;
 
     @Override
-    public String createToken(String id) {
-        return jwtUtils.createToken(id);
+    public String createToken(UserDetailsDTO userDetailsDTO) {
+        redisService.hSet(Constant.REDIS_USER_KEY, userDetailsDTO.getUser().getId().toString(), userDetailsDTO, Constant.TOKEN_DEFAULT_EXPIRE_TIME);
+        return jwtUtils.createToken(userDetailsDTO.getUser().getId().toString());
     }
 
     @Override

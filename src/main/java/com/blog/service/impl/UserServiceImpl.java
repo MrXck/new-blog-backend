@@ -1,15 +1,18 @@
 package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.enums.user.UserEnum;
+import com.blog.enums.user.UserErrorEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.UserMapper;
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.user.RegisterDTO;
 import com.blog.model.dto.user.UserDTO;
 import com.blog.pojo.User;
+import com.blog.service.TokenService;
 import com.blog.service.UserService;
 import com.blog.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Override
     public void register(RegisterDTO dto) {
@@ -61,6 +67,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         UserDTO userDTO = new UserDTO();
         userDTO.setPage(this.page(page, queryWrapper));
         return userDTO;
+    }
+
+    @Override
+    public void disable(Long id, Integer isDisable) {
+        if (!UserEnum.DISABLE.getCode().equals(isDisable) && !UserEnum.NORMAL.getCode().equals(isDisable)) {
+            throw new APIException(UserErrorEnum.DISABLE_USER_ERROR.getValue());
+        }
+        LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(User::getId, id);
+        updateWrapper.set(User::getIsDisable, isDisable);
+        this.update(updateWrapper);
+        if (UserEnum.DISABLE.getCode().equals(isDisable)) {
+            tokenService.delLoginUser(String.valueOf(id));
+        }
     }
 
 
