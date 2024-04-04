@@ -17,8 +17,10 @@ public class OperationLogServiceImpl extends ServiceImpl<OperationLogMapper, Ope
     public OperationLogDTO getByPage(PageDTO dto) {
         Page<OperationLog> page = new Page<>(dto.getPageNum(), dto.getPageSize());
         LambdaQueryWrapper<OperationLog> queryWrapper = new LambdaQueryWrapper<>();
+        String keyword = dto.getKeyword();
         queryWrapper.orderByDesc(OperationLog::getUpdateTime);
         queryWrapper.orderByDesc(OperationLog::getCreateTime);
+        queryWrapper.like(OperationLog::getPath, keyword);
 
         OperationLogDTO operationLogDTO = new OperationLogDTO();
         operationLogDTO.setPage(this.page(page, queryWrapper));
