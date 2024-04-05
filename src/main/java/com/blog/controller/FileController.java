@@ -55,20 +55,17 @@ public class FileController {
 
     @GetMapping("/download/{filename}")
     @NoAuthorization
-    public void download(@PathVariable("filename") String filename, HttpServletResponse response) {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(new File(Constant.PATH + filename));
-            ServletOutputStream outputStream = response.getOutputStream();
-            response.setContentType("application/octet-stream");
-            int len = 0;
-            byte[] bytes = new byte[1024];
-            while ((len = fileInputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, len);
-                outputStream.flush();
-            }
-            outputStream.close();
-            fileInputStream.close();
-        } catch (Exception e) {
+    public void download(@PathVariable("filename") String filename, HttpServletResponse response) throws Exception {
+        FileInputStream fileInputStream = new FileInputStream(Constant.PATH + filename);
+        ServletOutputStream outputStream = response.getOutputStream();
+        response.setContentType("application/octet-stream");
+        int len;
+        byte[] bytes = new byte[1024];
+        while ((len = fileInputStream.read(bytes)) != -1) {
+            outputStream.write(bytes, 0, len);
+            outputStream.flush();
         }
+        outputStream.close();
+        fileInputStream.close();
     }
 }

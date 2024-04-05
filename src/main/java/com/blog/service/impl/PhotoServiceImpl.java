@@ -9,7 +9,6 @@ import com.blog.model.dto.photo.PhotoDTO;
 import com.blog.pojo.Photo;
 import com.blog.service.PhotoService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements PhotoService {

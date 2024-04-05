@@ -7,7 +7,6 @@ import com.blog.model.dto.userRole.UserRoleDTO;
 import com.blog.pojo.UserRole;
 import com.blog.service.UserRoleService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;

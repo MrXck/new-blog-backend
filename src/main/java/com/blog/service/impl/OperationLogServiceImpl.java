@@ -9,7 +9,6 @@ import com.blog.model.dto.operationLog.OperationLogDTO;
 import com.blog.pojo.OperationLog;
 import com.blog.service.OperationLogService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OperationLogServiceImpl extends ServiceImpl<OperationLogMapper, OperationLog> implements OperationLogService {
