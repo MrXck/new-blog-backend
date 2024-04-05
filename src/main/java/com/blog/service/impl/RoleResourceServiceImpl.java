@@ -42,7 +42,6 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void saveResourceByRoleId(Long roleId, List<Long> resourceIds) {
         List<RoleResource> roleResources = new ArrayList<>();
         for (Long resourceId : resourceIds) {
@@ -55,7 +54,6 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void updateResourceByRoleId(Long roleId, List<Long> resourceIds) {
         deleteResourceByRoleId(roleId);
 
@@ -70,7 +68,6 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteResourceByRoleId(Long roleId) {
         LambdaQueryWrapper<RoleResource> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(RoleResource::getRoleId, roleId);

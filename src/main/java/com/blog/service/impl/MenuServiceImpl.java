@@ -31,7 +31,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void add(AddDTO dto) {
         Menu menu = new Menu();
         BeanUtils.copyProperties(dto, menu);
@@ -39,13 +38,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         this.removeById(id);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void edit(UpdateDTO dto) {
         Menu menu = new Menu();
         BeanUtils.copyProperties(dto, menu);

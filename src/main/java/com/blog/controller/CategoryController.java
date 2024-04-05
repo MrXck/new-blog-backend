@@ -27,8 +27,8 @@ public class CategoryController {
     }
 
     @ApiOperation("添加分类")
-    @PostMapping("/add")
-    public void add(@RequestBody @Valid AddDTO dto) {
+    @PostMapping("/insert")
+    public void insert(@RequestBody @Valid AddDTO dto) {
         categoryService.add(dto);
     }
 

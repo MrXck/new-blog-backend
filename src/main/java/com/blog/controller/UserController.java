@@ -34,7 +34,7 @@ public class UserController {
 
     @ApiOperation("根据id修改用户禁用状态")
     @GetMapping("/disable/{id}/{isDisable}")
-    public void featured(@PathVariable("id") Long id, @PathVariable("isDisable") Integer isDisable) {
+    public void updateFeatured(@PathVariable("id") Long id, @PathVariable("isDisable") Integer isDisable) {
         userService.disable(id, isDisable);
     }
 

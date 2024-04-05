@@ -25,7 +25,7 @@ public class FileController {
 
     @PostMapping(value = "/uploadImage")
     @NotControllerResponseAdvice
-    public String uploadImage(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+    public String insertImage(@RequestParam("file") MultipartFile multipartFile) throws Exception {
         File file = new File(Constant.PATH);
         if (!file.exists()) {
             file.mkdirs();

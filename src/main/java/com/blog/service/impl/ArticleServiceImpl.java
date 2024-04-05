@@ -20,7 +20,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -55,7 +54,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public ArticleDTO add(AddDTO dto) {
         String desc = dto.getDigest();
         Article article = new Article();
@@ -76,7 +74,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         articleTagService.deleteByArticleId(id);
         this.removeById(id);
@@ -105,7 +102,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void edit(UpdateDTO dto) {
         String desc = dto.getDigest();
         Article article = new Article();
@@ -135,7 +131,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void top(Long id, Integer isTop) {
         if (!ArticleEnum.TOP.getCode().equals(isTop) && !ArticleEnum.NOT_TOP.getCode().equals(isTop)) {
             throw new APIException(ArticleErrorEnum.IS_TOP_ERROR.getValue());

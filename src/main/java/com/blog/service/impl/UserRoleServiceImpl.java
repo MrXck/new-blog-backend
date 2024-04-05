@@ -16,7 +16,6 @@ import java.util.List;
 public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleService {
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteByUserId(Long userId) {
         LambdaQueryWrapper<UserRole> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserRole::getUserId, userId);
@@ -24,7 +23,6 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void updateByUserId(Long userId, List<Long> roleIds) {
         deleteByUserId(userId);
 

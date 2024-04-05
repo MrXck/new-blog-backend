@@ -34,7 +34,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void add(AddDTO dto) {
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Category::getName, dto.getName());
@@ -48,13 +47,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         this.removeById(id);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void edit(UpdateDTO dto) {
         Category category = new Category();
         BeanUtils.copyProperties(dto, category);

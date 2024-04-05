@@ -34,7 +34,6 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void add(AddDTO dto) {
         LambdaQueryWrapper<Tag> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Tag::getName, dto.getName());
@@ -49,13 +48,11 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         this.removeById(id);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void edit(UpdateDTO dto) {
         Tag tag = new Tag();
         BeanUtils.copyProperties(dto, tag);

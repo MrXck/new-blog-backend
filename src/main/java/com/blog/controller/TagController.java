@@ -27,8 +27,8 @@ public class TagController {
     }
 
     @ApiOperation("添加标签")
-    @PostMapping("/add")
-    public void add(@RequestBody @Valid AddDTO dto) {
+    @PostMapping("/insert")
+    public void insert(@RequestBody @Valid AddDTO dto) {
         tagService.add(dto);
     }
 

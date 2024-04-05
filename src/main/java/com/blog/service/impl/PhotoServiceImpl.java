@@ -28,7 +28,6 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         this.removeById(id);
     }

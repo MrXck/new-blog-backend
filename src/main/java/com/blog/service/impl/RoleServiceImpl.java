@@ -46,7 +46,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void add(AddDTO dto) {
         String name = dto.getName();
 
@@ -65,7 +64,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         LambdaQueryWrapper<UserRole> userRoleLambdaQueryWrapper = new LambdaQueryWrapper<>();
         userRoleLambdaQueryWrapper.eq(UserRole::getRoleId, id);
@@ -78,7 +76,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void edit(UpdateDTO dto) {
         Role role = new Role();
         BeanUtils.copyProperties(dto, role);

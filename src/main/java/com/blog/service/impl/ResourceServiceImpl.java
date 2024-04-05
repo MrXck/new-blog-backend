@@ -43,7 +43,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void add(AddResourceDTO dto) {
         Integer isAnonymous = dto.getIsAnonymous();
         if (!ResourceEnum.IS_ANONYMOUS.getCode().equals(isAnonymous) && !ResourceEnum.IS_NOT_ANONYMOUS.getCode().equals(isAnonymous)) {
@@ -68,7 +67,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         LambdaQueryWrapper<RoleResource> roleResourceLambdaQueryWrapper = new LambdaQueryWrapper<>();
         roleResourceLambdaQueryWrapper.eq(RoleResource::getResourceId, id);
@@ -81,7 +79,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void edit(UpdateDTO dto) {
         Resource resource = new Resource();
         BeanUtils.copyProperties(dto, resource);
@@ -104,7 +101,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void addResourceParent(AddResourceParentDTO dto) {
         LambdaQueryWrapper<Resource> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Resource::getName, dto.getName());
@@ -121,7 +117,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void editParent(UpdateParentDTO dto) {
         Long id = dto.getId();
         Resource resource = this.getById(id);
@@ -136,7 +131,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteParentById(Long id) {
         LambdaQueryWrapper<RoleResource> roleResourceLambdaQueryWrapper = new LambdaQueryWrapper<>();
         roleResourceLambdaQueryWrapper.eq(RoleResource::getResourceId, id);
@@ -153,7 +147,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void updateAnonymous(Long id, Integer anonymous) {
         if (!ResourceEnum.IS_ANONYMOUS.getCode().equals(anonymous) && !ResourceEnum.IS_NOT_ANONYMOUS.getCode().equals(anonymous)) {
             throw new APIException(ResourceErrorEnum.ANONYMOUS_ERROR.getValue());

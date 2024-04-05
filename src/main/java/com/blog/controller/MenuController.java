@@ -27,8 +27,8 @@ public class MenuController {
     }
 
     @ApiOperation("添加Menu")
-    @PostMapping("/add")
-    public void add(@RequestBody @Valid AddDTO dto) {
+    @PostMapping("/insert")
+    public void insert(@RequestBody @Valid AddDTO dto) {
         menuService.add(dto);
     }
 

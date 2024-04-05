@@ -25,14 +25,14 @@ public class ResourceController {
     }
 
     @ApiOperation("添加Resource")
-    @PostMapping("/addResource")
-    public void addResource(@RequestBody @Valid AddResourceDTO dto) {
+    @PostMapping("/insertResource")
+    public void insertResource(@RequestBody @Valid AddResourceDTO dto) {
         resourceService.add(dto);
     }
 
     @ApiOperation("添加Resource模块")
-    @PostMapping("/addResourceParent")
-    public void addResourceParent(@RequestBody @Valid AddResourceParentDTO dto) {
+    @PostMapping("/insertResourceParent")
+    public void insertResourceParent(@RequestBody @Valid AddResourceParentDTO dto) {
         resourceService.addResourceParent(dto);
     }
 

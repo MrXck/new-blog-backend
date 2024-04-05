@@ -49,7 +49,6 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void saveByArticleId(SaveDTO dto) {
         Long articleId = dto.getArticleId();
         Set<Long> tagIds = dto.getTagIds();
@@ -69,7 +68,6 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteByArticleId(Long articleId) {
         LambdaQueryWrapper<ArticleTag> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ArticleTag::getArticleId, articleId);
@@ -77,7 +75,6 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteByTagId(Long tagId) {
         LambdaQueryWrapper<ArticleTag> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ArticleTag::getTagId, tagId);

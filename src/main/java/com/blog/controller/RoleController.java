@@ -33,7 +33,7 @@ public class RoleController {
     }
 
     @ApiOperation("添加Role")
-    @PostMapping("/add")
+    @PostMapping("/insert")
     public void add(@RequestBody @Valid AddDTO dto) {
         roleService.add(dto);
     }
@@ -64,7 +64,7 @@ public class RoleController {
 
     @ApiOperation("修改角色是否禁用")
     @GetMapping("/disable/{id}/{isDisable}")
-    public void disable(@PathVariable("id") Long id, @PathVariable("isDisable") Integer isDisable) {
+    public void updateDisable(@PathVariable("id") Long id, @PathVariable("isDisable") Integer isDisable) {
         roleService.disable(id, isDisable);
     }
 

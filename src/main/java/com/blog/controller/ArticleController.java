@@ -33,8 +33,8 @@ public class ArticleController {
     }
 
     @ApiOperation("新增文章")
-    @PostMapping("/add")
-    public ArticleDTO add(@RequestBody @Valid AddDTO dto) {
+    @PostMapping("/insert")
+    public ArticleDTO insert(@RequestBody @Valid AddDTO dto) {
         return articleService.add(dto);
     }
 
@@ -58,13 +58,13 @@ public class ArticleController {
 
     @ApiOperation("根据id修改文章置顶状态")
     @GetMapping("/top/{id}/{isTop}")
-    public void top(@PathVariable("id") Long id, @PathVariable("isTop") Integer isTop) {
+    public void updateTop(@PathVariable("id") Long id, @PathVariable("isTop") Integer isTop) {
         articleService.top(id, isTop);
     }
 
     @ApiOperation("根据id修改文章推荐状态")
     @GetMapping("/featured/{id}/{isFeatured}")
-    public void featured(@PathVariable("id") Long id, @PathVariable("isFeatured") Integer isFeatured) {
+    public void updateFeatured(@PathVariable("id") Long id, @PathVariable("isFeatured") Integer isFeatured) {
         articleService.featured(id, isFeatured);
     }
 

@@ -29,7 +29,6 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void add(AddDTO dto) {
         RoleMenu roleMenu = new RoleMenu();
         BeanUtils.copyProperties(dto, roleMenu);
@@ -37,13 +36,11 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         this.removeById(id);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void edit(UpdateDTO dto) {
         RoleMenu roleMenu = new RoleMenu();
         BeanUtils.copyProperties(dto, roleMenu);

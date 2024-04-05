@@ -31,7 +31,6 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void add(AddDTO dto) {
         PhotoAlbum photoAlbum = new PhotoAlbum();
         BeanUtils.copyProperties(dto, photoAlbum);
@@ -39,13 +38,11 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         this.removeById(id);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void edit(UpdateDTO dto) {
         PhotoAlbum photoAlbum = new PhotoAlbum();
         BeanUtils.copyProperties(dto, photoAlbum);

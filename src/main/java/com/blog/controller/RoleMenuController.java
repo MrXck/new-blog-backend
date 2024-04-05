@@ -27,8 +27,8 @@ public class RoleMenuController {
     }
 
     @ApiOperation("添加RoleMenu")
-    @PostMapping("/add")
-    public void add(@RequestBody @Valid AddDTO dto) {
+    @PostMapping("/insert")
+    public void insert(@RequestBody @Valid AddDTO dto) {
         roleMenuService.add(dto);
     }
 

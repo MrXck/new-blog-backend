@@ -25,8 +25,8 @@ public class ArticleTagController {
     }
 
     @ApiOperation("根据文章id保存标签")
-    @PostMapping("/save")
-    public void save(@RequestBody @Valid SaveDTO dto) {
+    @PostMapping("/insertByArticleId")
+    public void insertByArticleId(@RequestBody @Valid SaveDTO dto) {
         articletagService.saveByArticleId(dto);
     }
 
