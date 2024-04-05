@@ -3,6 +3,7 @@ package com.blog.controller;
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.operationLog.OperationLogDTO;
 import com.blog.service.OperationLogService;
+import com.blog.utils.NoLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class OperationLogController {
     private OperationLogService operationLogService;
 
     @ApiOperation("分页获取操作日志")
+    @NoLog
     @PostMapping("/page")
     public OperationLogDTO page(@RequestBody @Valid PageDTO dto) {
         return operationLogService.getByPage(dto);

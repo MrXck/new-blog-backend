@@ -28,7 +28,7 @@ public class OperationLogAspect {
     @Autowired
     private OperationLogService operationLogService;
 
-    @Around("execution(* com.blog.controller..*.*(..))")
+    @Around("execution(* com.blog.controller..*.*(..)) && !@annotation(com.blog.utils.NoLog)")
     public Object recordOperationLog(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         OperationLog operationLog = new OperationLog();
