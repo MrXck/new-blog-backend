@@ -3,7 +3,6 @@ package com.blog.controller;
 import com.blog.exception.APIException;
 import com.blog.service.PhotoService;
 import com.blog.utils.Constant;
-import com.blog.utils.NoAuthorization;
 import com.blog.utils.NotControllerResponseAdvice;
 import com.blog.utils.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,6 @@ public class FileController {
     }
 
     @GetMapping("/download/{filename}")
-    @NoAuthorization
     public void download(@PathVariable("filename") String filename, HttpServletResponse response) throws Exception {
         FileInputStream fileInputStream = new FileInputStream(Constant.PATH + filename);
         ServletOutputStream outputStream = response.getOutputStream();

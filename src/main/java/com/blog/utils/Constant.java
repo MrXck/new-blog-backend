@@ -12,7 +12,6 @@ public class Constant {
     public static final String PATH = System.getProperty("user.dir") + "/files/";
     public static final List<String> SUFFIX_WHITE_LIST = new ArrayList<>(Arrays.asList("jpg", "jpeg", "png", "gif"));
 
-    public static final String LOGIN_ERROR = "用户名或密码错误";
     public static final String USERNAME_ALREADY_ERROR = "用户名已存在";
 
     public static final String REDIS_USER_KEY = "user";
