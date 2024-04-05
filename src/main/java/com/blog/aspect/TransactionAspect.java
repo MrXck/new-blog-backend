@@ -16,7 +16,8 @@ public class TransactionAspect {
 
     @Around("execution(* com.blog.controller..insert*(..)) || " +
             "execution(* com.blog.controller..update*(..)) || " +
-            "execution(* com.blog.controller..delete*(..))")
+            "execution(* com.blog.controller..delete*(..)) || " +
+            "execution(* com.blog.controller..register*(..))")
     public Object recordOperationLog(ProceedingJoinPoint joinPoint) {
         return transactionTemplate.execute(status -> {
             try {
