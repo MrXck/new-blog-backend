@@ -34,7 +34,7 @@ public class RoleController {
 
     @ApiOperation("添加Role")
     @PostMapping("/insert")
-    public void add(@RequestBody @Valid AddDTO dto) {
+    public void insert(@RequestBody @Valid AddDTO dto) {
         roleService.add(dto);
     }
 
