@@ -1,5 +1,6 @@
 package com.blog.aspect;
 
+import com.blog.exception.APIException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,7 +26,7 @@ public class TransactionAspect {
             } catch (Throwable e) {
                 // 回滚事务
                 status.setRollbackOnly();
-                throw new RuntimeException("Transaction rolled back", e);
+                throw new APIException(e.getMessage());
             }
         });
     }

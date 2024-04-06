@@ -44,4 +44,10 @@ public class UserController {
         userService.edit(dto);
     }
 
+    @ApiOperation("分页获取当前在线用户")
+    @PostMapping("/online/page")
+    public UserDTO onlinePage(@RequestBody @Valid PageDTO dto) {
+        return userService.onlinePage(dto);
+    }
+
 }

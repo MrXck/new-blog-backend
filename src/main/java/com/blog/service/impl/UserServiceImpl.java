@@ -9,10 +9,12 @@ import com.blog.enums.user.UserErrorEnum;
 import com.blog.exception.APIException;
 import com.blog.mapper.UserMapper;
 import com.blog.model.dto.PageDTO;
+import com.blog.model.dto.security.UserDetailsDTO;
 import com.blog.model.dto.user.RegisterDTO;
 import com.blog.model.dto.user.UpdateDTO;
 import com.blog.model.dto.user.UserDTO;
 import com.blog.pojo.User;
+import com.blog.service.RedisService;
 import com.blog.service.TokenService;
 import com.blog.service.UserRoleService;
 import com.blog.service.UserService;
@@ -22,8 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -36,6 +37,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private UserRoleService userRoleService;
+
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public void register(RegisterDTO dto) {
@@ -106,6 +110,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         this.update(updateWrapper);
 
         userRoleService.updateByUserId(id, roleIds);
+    }
+
+    @Override
+    public UserDTO onlinePage(PageDTO dto) {
+        Map<String, Object> userDTOMap = redisService.hGetAll(Constant.REDIS_USER_KEY);
+
+        Collection<Object> userDTOs = userDTOMap.values();
+        String keyword = dto.getKeyword();
+        Integer pageSize = dto.getPageSize();
+        Integer pageNum = dto.getPageNum();
+
+        Page<User> page = new Page<>();
+
+        List<User> users = new ArrayList<>();
+
+        for (Object userDTO : userDTOs) {
+            UserDetailsDTO userDetailsDTO = (UserDetailsDTO) userDTO;
+            if (userDetailsDTO.getUser().getNickname().contains(keyword)) {
+                users.add(userDetailsDTO.getUser());
+            }
+        }
+
+        page.setTotal(users.size());
+        page.setRecords(users.subList((pageNum - 1) * pageSize, Math.min((pageNum * pageSize), users.size())));
+        UserDTO userDTO = new UserDTO();
+        userDTO.setPage(page);
+        return userDTO;
     }
 
 }

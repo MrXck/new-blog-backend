@@ -15,4 +15,6 @@ public interface UserService extends IService<User> {
     void disable(Long id, Integer isDisable);
 
     void edit(UpdateDTO dto);
+
+    UserDTO onlinePage(PageDTO dto);
 }
