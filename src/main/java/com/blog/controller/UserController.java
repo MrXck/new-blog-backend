@@ -50,4 +50,10 @@ public class UserController {
         return userService.onlinePage(dto);
     }
 
+    @ApiOperation("根据id下线用户")
+    @DeleteMapping("/offline/{id}")
+    public void offline(@PathVariable("id") Long id) {
+        userService.offline(id);
+    }
+
 }

@@ -139,4 +139,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userDTO;
     }
 
+    @Override
+    public void offline(Long id) {
+        redisService.hDel(Constant.REDIS_USER_KEY, id.toString());
+    }
+
 }

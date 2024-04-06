@@ -17,4 +17,6 @@ public interface UserService extends IService<User> {
     void edit(UpdateDTO dto);
 
     UserDTO onlinePage(PageDTO dto);
+
+    void offline(Long id);
 }
