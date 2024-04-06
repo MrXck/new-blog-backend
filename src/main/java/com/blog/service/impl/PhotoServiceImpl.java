@@ -69,4 +69,17 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
         this.update(updateWrapper);
     }
 
+    @Override
+    public PhotoDTO pageByPhotoAlbum(PageDTO dto, Long photoAlbumId) {
+        Page<Photo> page = new Page<>(dto.getPageNum(), dto.getPageSize());
+
+        LambdaQueryWrapper<Photo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Photo::getPhotoAlbumId, photoAlbumId);
+
+        PhotoDTO photoDTO = new PhotoDTO();
+        photoDTO.setPage(this.page(page, queryWrapper));
+
+        return photoDTO;
+    }
+
 }

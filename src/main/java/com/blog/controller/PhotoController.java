@@ -49,4 +49,10 @@ public class PhotoController {
         photoService.updateByPhotoAlbum(dto);
     }
 
+    @ApiOperation("根据相册id分页获取该相册的图片")
+    @PostMapping("/pageByPhotoAlbum/{photoAlbumId}")
+    public PhotoDTO pageByPhotoAlbum(@RequestBody @Valid PageDTO dto, @PathVariable("photoAlbumId") Long photoAlbumId) {
+        return photoService.pageByPhotoAlbum(dto, photoAlbumId);
+    }
+
 }

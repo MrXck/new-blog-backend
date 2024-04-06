@@ -19,4 +19,6 @@ public interface PhotoService extends IService<Photo> {
     Long add(String name, String path);
 
     void updateByPhotoAlbum(UpdateByPhotoAlbumDTO dto);
+
+    PhotoDTO pageByPhotoAlbum(PageDTO dto, Long photoAlbumId);
 }
