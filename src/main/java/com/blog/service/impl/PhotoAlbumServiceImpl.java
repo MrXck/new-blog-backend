@@ -1,7 +1,5 @@
 package com.blog.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.mapper.PhotoAlbumMapper;
 import com.blog.model.dto.PageDTO;
@@ -18,14 +16,9 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
 
     @Override
     public PhotoAlbumDTO getByPage(PageDTO dto) {
-        Page<PhotoAlbum> page = new Page<>(dto.getPageNum(), dto.getPageSize());
-        String keyword = dto.getKeyword();
-        LambdaQueryWrapper<PhotoAlbum> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(PhotoAlbum::getName, keyword);
-        queryWrapper.orderByDesc(PhotoAlbum::getUpdateTime);
-        queryWrapper.orderByDesc(PhotoAlbum::getCreateTime);
         PhotoAlbumDTO photoAlbumDTO = new PhotoAlbumDTO();
-        photoAlbumDTO.setPage(this.page(page, queryWrapper));
+        photoAlbumDTO.setPhotoAlbumVOS(this.baseMapper.getByPage((dto.getPageNum() - 1) * 10, dto.getPageSize()));
+        photoAlbumDTO.setCount(this.count());
         return photoAlbumDTO;
     }
 
