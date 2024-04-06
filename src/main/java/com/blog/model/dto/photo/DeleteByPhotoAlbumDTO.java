@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
-public class UpdateByPhotoAlbumDTO {
+public class DeleteByPhotoAlbumDTO {
 
     @NotNull(message = "photoAlbumId不能为空")
     private Long photoAlbumId;

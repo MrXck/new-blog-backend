@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 import com.blog.model.dto.PageDTO;
+import com.blog.model.dto.photo.DeleteByPhotoAlbumDTO;
 import com.blog.model.dto.photo.PhotoDTO;
 import com.blog.model.dto.photo.UpdateByPhotoAlbumDTO;
 import com.blog.service.PhotoService;
@@ -53,6 +54,12 @@ public class PhotoController {
     @PostMapping("/pageByPhotoAlbum/{photoAlbumId}")
     public PhotoDTO pageByPhotoAlbum(@RequestBody @Valid PageDTO dto, @PathVariable("photoAlbumId") Long photoAlbumId) {
         return photoService.pageByPhotoAlbum(dto, photoAlbumId);
+    }
+
+    @ApiOperation("根据相册id批量删除相册中的图片")
+    @PostMapping("/deleteByPhotoAlbum")
+    public void deleteByPhotoAlbum(@RequestBody @Valid DeleteByPhotoAlbumDTO dto) {
+        photoService.deleteByPhotoAlbum(dto);
     }
 
 }
