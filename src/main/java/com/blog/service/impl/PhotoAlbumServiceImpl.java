@@ -8,11 +8,16 @@ import com.blog.model.dto.photoAlbum.PhotoAlbumDTO;
 import com.blog.model.dto.photoAlbum.UpdateDTO;
 import com.blog.pojo.PhotoAlbum;
 import com.blog.service.PhotoAlbumService;
+import com.blog.service.PhotoService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAlbum> implements PhotoAlbumService {
+
+    @Autowired
+    private PhotoService photoService;
 
     @Override
     public PhotoAlbumDTO getByPage(PageDTO dto) {
@@ -31,6 +36,7 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
 
     @Override
     public void deleteById(Long id) {
+        photoService.deleteByPhotoAlbumId(id);
         this.removeById(id);
     }
 

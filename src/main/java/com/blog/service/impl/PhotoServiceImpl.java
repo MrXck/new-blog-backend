@@ -95,4 +95,11 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
         this.remove(queryWrapper);
     }
 
+    @Override
+    public void deleteByPhotoAlbumId(Long id) {
+        LambdaQueryWrapper<Photo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Photo::getPhotoAlbumId, id);
+        this.remove(queryWrapper);
+    }
+
 }

@@ -24,4 +24,6 @@ public interface PhotoService extends IService<Photo> {
     PhotoDTO pageByPhotoAlbum(PageDTO dto, Long photoAlbumId);
 
     void deleteByPhotoAlbum(DeleteByPhotoAlbumDTO dto);
+
+    void deleteByPhotoAlbumId(Long id);
 }
