@@ -1,11 +1,13 @@
 package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.mapper.PhotoMapper;
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.photo.PhotoDTO;
+import com.blog.model.dto.photo.UpdateByPhotoAlbumDTO;
 import com.blog.pojo.Photo;
 import com.blog.service.PhotoService;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,18 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
         photo.setSrc(path);
         this.save(photo);
         return photo.getId();
+    }
+
+    @Override
+    public void updateByPhotoAlbum(UpdateByPhotoAlbumDTO dto) {
+        if (dto.getPhotoIds().isEmpty()) {
+            return;
+        }
+
+        LambdaUpdateWrapper<Photo> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.set(Photo::getPhotoAlbumId, dto.getPhotoAlbumId());
+        updateWrapper.in(Photo::getId, dto.getPhotoIds());
+        this.update(updateWrapper);
     }
 
 }

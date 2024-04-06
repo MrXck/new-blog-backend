@@ -2,6 +2,7 @@ package com.blog.controller;
 
 import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.photo.PhotoDTO;
+import com.blog.model.dto.photo.UpdateByPhotoAlbumDTO;
 import com.blog.service.PhotoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +41,12 @@ public class PhotoController {
     @GetMapping("/{id}")
     public PhotoDTO getById(@PathVariable("id") Long id) {
         return photoService.findById(id);
+    }
+
+    @ApiOperation("根据相册id修改图片所属相册")
+    @PostMapping("/updateByPhotoAlbum")
+    public void updateByPhotoAlbum(@RequestBody @Valid UpdateByPhotoAlbumDTO dto) {
+        photoService.updateByPhotoAlbum(dto);
     }
 
 }
