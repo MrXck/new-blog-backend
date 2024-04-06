@@ -46,12 +46,13 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, Photo> implements
     }
 
     @Override
-    public void add(String name, String path) {
+    public Long add(String name, String path) {
         Photo photo = new Photo();
         photo.setName(name);
         photo.setPath(path);
         photo.setSrc(path);
         this.save(photo);
+        return photo.getId();
     }
 
 }
