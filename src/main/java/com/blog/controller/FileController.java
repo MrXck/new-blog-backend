@@ -1,11 +1,7 @@
 package com.blog.controller;
 
-import com.blog.exception.APIException;
-import com.blog.service.PhotoService;
 import com.blog.service.UploadService;
-import com.blog.utils.Constant;
 import com.blog.utils.NotControllerResponseAdvice;
-import com.blog.utils.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Paths;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/file")
 public class FileController {
-
-    @Autowired
-    private PhotoService photoService;
 
     @Autowired
     private UploadService uploadService;
@@ -33,12 +24,12 @@ public class FileController {
 
     @PostMapping(value = "/uploadImage")
     @NotControllerResponseAdvice
-    public String insertImage(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+    public String insertImage(@RequestParam("file") MultipartFile multipartFile) {
         return uploadService.uploadImage(multipartFile);
     }
 
     @PostMapping(value = "/uploadImagePhoto")
-    public Long insertImagePhoto(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+    public Long insertImagePhoto(@RequestParam("file") MultipartFile multipartFile) {
         return uploadService.uploadPhoto(multipartFile);
     }
 

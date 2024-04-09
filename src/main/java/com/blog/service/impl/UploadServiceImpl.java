@@ -26,7 +26,7 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public Long uploadPhoto(MultipartFile multipartFile) {
-        String string = fileService.upload(UploadPathEnum.PHOTO.getPath(), multipartFile);
+        String string = fileService.upload(UploadPathEnum.PHOTO_ALBUM_COVER.getPath(), multipartFile);
         return photoService.add(multipartFile.getOriginalFilename(), string);
     }
 }
