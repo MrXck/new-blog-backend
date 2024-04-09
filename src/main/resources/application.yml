@@ -46,3 +46,13 @@ mybatis-plus:
 knife4j:
   enable: true
 
+file:
+  mode: minio
+  local:
+    path: 'D:\project\前后端分离项目\blog-new\blog-backend\files'
+  minio:
+    url: http://192.168.101.65:9000/
+    endpoint: http://192.168.101.65:9000
+    accesskey: minioadmin
+    secretKey: minioadmin
+    bucketName: blog
