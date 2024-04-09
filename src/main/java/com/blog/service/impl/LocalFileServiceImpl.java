@@ -61,7 +61,7 @@ public class LocalFileServiceImpl implements FileService {
             throw new APIException("上传失败");
         }
 
-        return "/file/download/" + newPath;
+        return Paths.get("/file/download/", newPath).toString();
     }
 
     @Override

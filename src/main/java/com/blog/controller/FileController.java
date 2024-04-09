@@ -39,29 +39,7 @@ public class FileController {
 
     @PostMapping(value = "/uploadImagePhoto")
     public Long insertImagePhoto(@RequestParam("file") MultipartFile multipartFile) throws Exception {
-        File file = new File(Constant.PATH);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-
-        try {
-            String[] split = multipartFile.getOriginalFilename().split("\\.");
-
-            if (split.length < 2) {
-                throw new APIException("上传的文件有误");
-            }
-
-            if (!Constant.SUFFIX_WHITE_LIST.contains(split[1])) {
-                throw new APIException("上传的文件格式不支持");
-            }
-
-            String path = UserThreadLocal.get().toString() + "_" + UUID.randomUUID() + "." + split[1];
-            multipartFile.transferTo(new File(Constant.PATH + path));
-
-            return photoService.add(multipartFile.getOriginalFilename(), "/file/download/" + path);
-        } catch (Exception e) {
-            throw new APIException("文件上传失败");
-        }
+        return uploadService.uploadPhoto(multipartFile);
     }
 
     @GetMapping("/download/{filename}")

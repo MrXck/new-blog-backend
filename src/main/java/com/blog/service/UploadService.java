@@ -6,5 +6,5 @@ public interface UploadService {
 
     String uploadImage(MultipartFile multipartFile);
 
-    String uploadPhoto(MultipartFile multipartFile);
+    Long uploadPhoto(MultipartFile multipartFile);
 }

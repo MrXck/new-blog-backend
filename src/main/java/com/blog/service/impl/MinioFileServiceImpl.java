@@ -12,6 +12,7 @@ import io.minio.StatObjectArgs;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 public class MinioFileServiceImpl implements FileService {
@@ -49,20 +50,21 @@ public class MinioFileServiceImpl implements FileService {
         }
 
         String newPath;
+        String resultPath;
         try {
             newPath = checkFile(filePath, UserThreadLocal.get().toString() + "_", file.getOriginalFilename());
             InputStream inputStream = file.getInputStream();
+            resultPath = Paths.get(bucketName, newPath).toString();
 
             minioClient.putObject(
                     PutObjectArgs.builder().bucket(bucketName).object(newPath).stream(
                                     inputStream, inputStream.available(), -1)
                             .build());
-            photoService.add(file.getOriginalFilename(), newPath);
         } catch (Exception e) {
             throw new APIException("上传失败");
         }
 
-        return "blog/" + newPath;
+        return resultPath;
     }
 
     @Override
