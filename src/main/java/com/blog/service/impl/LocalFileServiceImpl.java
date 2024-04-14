@@ -26,11 +26,7 @@ public class LocalFileServiceImpl implements FileService {
     @Override
     public boolean exists(String filePath) {
         try {
-            if (Paths.get(PATH, filePath).toFile().exists()) {
-                return true;
-            } else {
-                return false;
-            }
+            return Paths.get(PATH, filePath).toFile().exists();
         } catch (Exception e) {
             return true;
         }
@@ -49,7 +45,7 @@ public class LocalFileServiceImpl implements FileService {
             if (!path.exists()) {
                 try {
                     path.mkdirs();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
 
                 }
             }
