@@ -14,7 +14,6 @@ import com.blog.model.dto.user.RegisterDTO;
 import com.blog.model.dto.user.UpdateDTO;
 import com.blog.model.dto.user.UserDTO;
 import com.blog.pojo.User;
-import com.blog.service.RedisService;
 import com.blog.service.TokenService;
 import com.blog.service.UserRoleService;
 import com.blog.service.UserService;

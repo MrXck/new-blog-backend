@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.mapper.RoleResourceMapper;
 import com.blog.model.dto.roleResource.RoleResourceDTO;
 import com.blog.pojo.RoleResource;
+import com.blog.secutiry.FilterInvocationSecurityMetadataSourceImpl;
 import com.blog.service.RoleResourceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +15,9 @@ import java.util.List;
 
 @Service
 public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, RoleResource> implements RoleResourceService {
+
+    @Autowired
+    private FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
 
     @Override
     public RoleResourceDTO all() {
@@ -64,6 +69,7 @@ public class RoleResourceServiceImpl extends ServiceImpl<RoleResourceMapper, Rol
             roleResources.add(roleResource);
         }
         this.saveBatch(roleResources);
+        filterInvocationSecurityMetadataSource.loadResourceRoleList();
     }
 
     @Override

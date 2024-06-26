@@ -1,8 +1,8 @@
 package com.blog.service.impl;
 
 import com.blog.model.dto.security.UserDetailsDTO;
-import com.blog.service.RedisService;
 import com.blog.service.TokenService;
+import com.blog.utils.CacheUtils;
 import com.blog.utils.Constant;
 import com.blog.utils.JwtUtils;
 import com.blog.utils.UserThreadLocal;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TokenServiceImpl implements TokenService {
@@ -19,18 +20,18 @@ public class TokenServiceImpl implements TokenService {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private RedisService redisService;
+    private CacheUtils<String, Object> cacheUtils;
 
     @Override
     public String createToken(UserDetailsDTO userDetailsDTO) {
-        redisService.hSet(Constant.REDIS_USER_KEY, userDetailsDTO.getUser().getId().toString(), userDetailsDTO, Constant.TOKEN_DEFAULT_EXPIRE_TIME);
+        cacheUtils.hSet(Constant.REDIS_USER_KEY, userDetailsDTO.getUser().getId().toString(), userDetailsDTO, 120, TimeUnit.MINUTES);
         return jwtUtils.createToken(userDetailsDTO.getUser().getId().toString());
     }
 
     @Override
     public void refreshToken(String id) {
-        Object o = redisService.hGet(Constant.REDIS_USER_KEY, id);
-        redisService.hSet(Constant.REDIS_USER_KEY, id, o, Constant.TOKEN_DEFAULT_EXPIRE_TIME);
+        Object o = cacheUtils.hGet(Constant.REDIS_USER_KEY, id);
+        cacheUtils.hSet(Constant.REDIS_USER_KEY, id, o, 120, TimeUnit.MINUTES);
     }
 
     @Override
@@ -44,13 +45,13 @@ public class TokenServiceImpl implements TokenService {
         if (token != null && !token.isEmpty()) {
             String userId = jwtUtils.checkToken(token);
             UserThreadLocal.set(Long.valueOf(userId));
-            return (UserDetailsDTO) redisService.hGet(Constant.REDIS_USER_KEY, userId);
+            return (UserDetailsDTO) cacheUtils.hGet(Constant.REDIS_USER_KEY, userId);
         }
         return null;
     }
 
     @Override
     public void delLoginUser(String id) {
-        redisService.hDel(Constant.REDIS_USER_KEY, id);
+        cacheUtils.hDel(Constant.REDIS_USER_KEY, id);
     }
 }

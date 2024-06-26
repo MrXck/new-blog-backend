@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 @Aspect
 @Component
@@ -68,7 +69,7 @@ public class OperationLogAspect {
             operationLog.setNickname(userDetailsDTO.getUser().getNickname());
         }
 
-        operationLogService.save(operationLog);
+        CompletableFuture.runAsync(() -> operationLogService.save(operationLog));
         return result;
     }
 }
