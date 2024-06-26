@@ -17,6 +17,7 @@ import com.blog.pojo.User;
 import com.blog.service.TokenService;
 import com.blog.service.UserRoleService;
 import com.blog.service.UserService;
+import com.blog.utils.CacheUtils;
 import com.blog.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +39,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserRoleService userRoleService;
 
     @Autowired
-    private RedisService redisService;
+    private CacheUtils<String, Object> cacheUtils;
 
     @Override
     public void register(RegisterDTO dto) {
@@ -113,9 +114,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public UserDTO onlinePage(PageDTO dto) {
-        Map<String, Object> userDTOMap = redisService.hGetAll(Constant.REDIS_USER_KEY);
+        Map<String, Object> userDTOMap = cacheUtils.hGetAll(Constant.REDIS_USER_KEY);
 
-        Collection<Object> userDTOs = userDTOMap.values();
+        Collection<Object> userDTOs = null;
+        try {
+            userDTOs = userDTOMap.values();
+        } catch (Exception e) {
+            userDTOs = new ArrayList<>();
+        }
         String keyword = dto.getKeyword();
         Integer pageSize = dto.getPageSize();
         Integer pageNum = dto.getPageNum();
@@ -140,7 +146,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public void offline(Long id) {
-        redisService.hDel(Constant.REDIS_USER_KEY, id.toString());
+        cacheUtils.hDel(Constant.REDIS_USER_KEY, id.toString());
     }
 
 }
