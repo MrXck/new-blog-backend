@@ -12,5 +12,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     List<ArticleVO> getByPage(String keyword, Integer pageNum, Integer pageSize);
 
+    List<ArticleVO> getTwoFeature();
+
     List<ArticleVO> getByPageAdmin(String keyword, Integer pageNum, Integer pageSize);
 }

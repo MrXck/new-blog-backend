@@ -74,4 +74,10 @@ public class ArticleController {
         return articleService.getNew();
     }
 
+    @ApiOperation("获取最新的两篇推荐文章")
+    @GetMapping("/getNewFeatured")
+    public ArticleDTO getNewFeatured() {
+        return articleService.getNewFeatured();
+    }
+
 }

@@ -38,16 +38,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         ArticleDTO articleDTO = new ArticleDTO();
 
         List<ArticleVO> articleVOS = this.baseMapper.getByPage(keyword, (dto.getPageNum() - 1) * 10, dto.getPageSize());
-        Set<Long> articleIds = new HashSet<>();
-        for (ArticleVO articleVO : articleVOS) {
-            articleIds.add(articleVO.getId());
-        }
 
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(Article::getTitle, keyword);
         articleDTO.setCount(this.count(queryWrapper));
-        articleDTO.setArticleTagVOS(articleTagService.getTagListByArticleIds(articleIds));
-
         articleDTO.setArticleVOS(articleVOS);
 
         return articleDTO;
@@ -86,15 +80,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         List<ArticleVO> articleVOS = this.baseMapper.getByPageAdmin(keyword, (dto.getPageNum() - 1) * 10, dto.getPageSize());
 
-        Set<Long> articleIds = new HashSet<>();
-        for (ArticleVO articleVO : articleVOS) {
-            articleIds.add(articleVO.getId());
-        }
-
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(Article::getTitle, keyword);
         articleDTO.setCount(this.count(queryWrapper));
-        articleDTO.setArticleTagVOS(articleTagService.getTagListByArticleIds(articleIds));
 
         articleDTO.setArticleVOS(articleVOS);
 
@@ -165,6 +153,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         articleDTO.setCount(this.count(queryWrapper));
         articleDTO.setArticleTagVOS(articleTagService.getTagListByArticleIds(articleIds));
+
+        articleDTO.setArticleVOS(articleVOS);
+
+        return articleDTO;
+    }
+
+    @Override
+    public ArticleDTO getNewFeatured() {
+        ArticleDTO articleDTO = new ArticleDTO();
+
+        List<ArticleVO> articleVOS = this.baseMapper.getTwoFeature();
+
+        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+        articleDTO.setCount(this.count(queryWrapper));
 
         articleDTO.setArticleVOS(articleVOS);
 

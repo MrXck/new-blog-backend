@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.mapper.ArticleMapper">
-    <select id="getByPage" resultType="com.blog.model.vo.ArticleVO">
+
+    <resultMap id="articleVOMap" type="com.blog.model.vo.ArticleVO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="cover" column="cover"/>
+        <result property="digest" column="digest"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="isTop" column="is_top"/>
+        <result property="isFeatured" column="is_featured"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="username" column="username"/>
+        <collection property="tagList" ofType="java.lang.String">
+            <constructor>
+                <arg column="tag_name"/>
+            </constructor>
+        </collection>
+    </resultMap>
+
+    <select id="getByPage" resultMap="articleVOMap">
         select a.id,
                a.cover,
                a.title,
@@ -11,16 +30,22 @@
                a.status,
                a.type,
                a.create_time,
-               c.name as category_name
+               c.name as category_name,
+               t.name as tag_name,
+               u.username
         from article a
                  left join category c on a.category_id = c.id
-        where a.title like concat('%', #{keyword}, '%') and is_delete = 0
+                 left join article_tag artit on a.id = artit.article_id
+                 left join tag t on artit.tag_id = t.id
+                 left join user u on a.user_id = u.id
+        where a.title like concat('%', #{keyword}, '%')
+          and is_delete = 0
         ORDER BY a.update_time desc
             limit #{pageNum}
                , #{pageSize}
     </select>
 
-    <select id="getByPageAdmin" resultType="com.blog.model.vo.ArticleVO">
+    <select id="getTwoFeature" resultMap="articleVOMap">
         select a.id,
                a.cover,
                a.title,
@@ -30,11 +55,38 @@
                a.status,
                a.type,
                a.create_time,
-               c.name as category_name
+               c.name as category_name,
+               t.name as tag_name,
+               u.username
         from article a
                  left join category c on a.category_id = c.id
+                 left join article_tag artit on a.id = artit.article_id
+                 left join tag t on artit.tag_id = t.id
+                 left join user u on a.user_id = u.id
+        where a.is_delete = 0 and a.is_featured = 1
+        ORDER BY a.update_time desc limit 0, 2
+    </select>
+
+    <select id="getByPageAdmin" resultMap="articleVOMap">
+        select a.id,
+               a.cover,
+               a.title,
+               a.digest,
+               a.is_top,
+               a.is_featured,
+               a.status,
+               a.type,
+               a.create_time,
+               c.name as category_name,
+               t.name as tag_name,
+               u.username
+        from article a
+                 left join category c on a.category_id = c.id
+                 left join article_tag artit on a.id = artit.article_id
+                 left join tag t on artit.tag_id = t.id
+                 left join user u on a.user_id = u.id
         where a.title like concat('%', #{keyword}, '%')
-        ORDER BY create_time
+        ORDER BY a.update_time desc
             limit #{pageNum}
                , #{pageSize}
     </select>
