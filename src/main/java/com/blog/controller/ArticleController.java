@@ -79,4 +79,10 @@ public class ArticleController {
     public ArticleDTO getNewFeatured() {
         return articleService.getNewFeatured();
     }
+
+    @ApiOperation("获取文章总数")
+    @GetMapping("/count")
+    public ArticleDTO count() {
+        return articleService.allCount();
+    }
 }

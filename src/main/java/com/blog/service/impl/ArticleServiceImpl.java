@@ -172,4 +172,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         return articleDTO;
     }
+
+    @Override
+    public ArticleDTO allCount() {
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setCount(this.count());
+        return articleDTO;
+    }
 }

@@ -29,4 +29,6 @@ public interface ArticleService extends IService<Article> {
     ArticleDTO getNew();
 
     ArticleDTO getNewFeatured();
+
+    ArticleDTO allCount();
 }
