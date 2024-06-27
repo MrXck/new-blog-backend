@@ -151,4 +151,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         updateWrapper.set(Article::getIsFeatured, isFeatured);
         this.update(updateWrapper);
     }
+
+    @Override
+    public ArticleDTO getNew() {
+        ArticleDTO articleDTO = new ArticleDTO();
+
+        List<ArticleVO> articleVOS = this.baseMapper.getByPage("", 0, 1);
+        Set<Long> articleIds = new HashSet<>();
+        for (ArticleVO articleVO : articleVOS) {
+            articleIds.add(articleVO.getId());
+        }
+
+        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+        articleDTO.setCount(this.count(queryWrapper));
+        articleDTO.setArticleTagVOS(articleTagService.getTagListByArticleIds(articleIds));
+
+        articleDTO.setArticleVOS(articleVOS);
+
+        return articleDTO;
+    }
 }

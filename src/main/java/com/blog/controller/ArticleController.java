@@ -68,4 +68,10 @@ public class ArticleController {
         articleService.featured(id, isFeatured);
     }
 
+    @ApiOperation("获取最新的一篇文章")
+    @GetMapping("/getNew")
+    public ArticleDTO getNew() {
+        return articleService.getNew();
+    }
+
 }

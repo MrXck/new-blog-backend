@@ -15,7 +15,7 @@
         from article a
                  left join category c on a.category_id = c.id
         where a.title like concat('%', #{keyword}, '%') and is_delete = 0
-        ORDER BY create_time
+        ORDER BY a.update_time desc
             limit #{pageNum}
                , #{pageSize}
     </select>

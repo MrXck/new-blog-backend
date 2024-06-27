@@ -25,4 +25,6 @@ public interface ArticleService extends IService<Article> {
     void top(Long id, Integer isTop);
 
     void featured(Long id, Integer isFeatured);
+
+    ArticleDTO getNew();
 }
