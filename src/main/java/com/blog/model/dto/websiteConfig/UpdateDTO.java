@@ -1,13 +1,12 @@
 package com.blog.model.dto.websiteConfig;
 
-import com.blog.pojo.WebsiteConfig;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
-public class UpdateDTO extends WebsiteConfig {
+public class UpdateDTO {
 
     @NotNull(message = "id不能为空")
     private Long id;

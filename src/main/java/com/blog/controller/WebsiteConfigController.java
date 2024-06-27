@@ -1,6 +1,5 @@
 package com.blog.controller;
 
-import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.websiteConfig.InsertDTO;
 import com.blog.model.dto.websiteConfig.UpdateDTO;
 import com.blog.model.dto.websiteConfig.WebsiteConfigDTO;
@@ -19,9 +18,9 @@ public class WebsiteConfigController {
     private WebsiteConfigService websiteConfigService;
 
     @ApiOperation("分页获取WebsiteConfig")
-    @PostMapping("/page")
-    public WebsiteConfigDTO page(@RequestBody @Valid PageDTO dto) {
-        return websiteConfigService.getByPage(dto);
+    @GetMapping("/all")
+    public WebsiteConfigDTO all() {
+        return websiteConfigService.all();
     }
 
     @ApiOperation("添加WebsiteConfig")

@@ -1,10 +1,7 @@
 package com.blog.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.mapper.WebsiteConfigMapper;
-import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.websiteConfig.InsertDTO;
 import com.blog.model.dto.websiteConfig.UpdateDTO;
 import com.blog.model.dto.websiteConfig.WebsiteConfigDTO;
@@ -15,17 +12,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WebsiteConfigServiceImpl extends ServiceImpl<WebsiteConfigMapper, WebsiteConfig> implements WebsiteConfigService {
-
-    @Override
-    public WebsiteConfigDTO getByPage(PageDTO dto) {
-        Page<WebsiteConfig> page = new Page<>(dto.getPageNum(), dto.getPageSize());
-        LambdaQueryWrapper<WebsiteConfig> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.orderByDesc(WebsiteConfig::getUpdateTime);
-        queryWrapper.orderByDesc(WebsiteConfig::getCreateTime);
-        WebsiteConfigDTO websiteConfigDTO = new WebsiteConfigDTO();
-        websiteConfigDTO.setPage(this.page(page, queryWrapper));
-        return websiteConfigDTO;
-    }
 
     @Override
     public void insert(InsertDTO dto) {
@@ -41,6 +27,13 @@ public class WebsiteConfigServiceImpl extends ServiceImpl<WebsiteConfigMapper, W
         WebsiteConfig websiteConfig = new WebsiteConfig();
         BeanUtils.copyProperties(dto, websiteConfig);
         this.updateById(websiteConfig);
+    }
+
+    @Override
+    public WebsiteConfigDTO all() {
+        WebsiteConfigDTO websiteConfigDTO = new WebsiteConfigDTO();
+        websiteConfigDTO.setWebsiteConfigs(this.list());
+        return websiteConfigDTO;
     }
 
 }
