@@ -12,4 +12,6 @@ public class CategoryDTO {
     private Page<Category> page;
 
     private List<Category> list;
+
+    private Integer count;
 }

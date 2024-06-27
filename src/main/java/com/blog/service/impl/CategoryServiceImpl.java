@@ -66,4 +66,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         categoryDTO.setList(list);
         return categoryDTO;
     }
+
+    @Override
+    public CategoryDTO allCount() {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setCount(this.count());
+        return categoryDTO;
+    }
 }

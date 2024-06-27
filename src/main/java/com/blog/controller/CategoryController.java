@@ -50,4 +50,10 @@ public class CategoryController {
         return categoryService.all();
     }
 
+    @ApiOperation("获取分类总数")
+    @GetMapping("/count")
+    public CategoryDTO count() {
+        return categoryService.allCount();
+    }
+
 }

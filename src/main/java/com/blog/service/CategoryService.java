@@ -17,4 +17,6 @@ public interface CategoryService extends IService<Category> {
     void edit(UpdateDTO dto);
 
     CategoryDTO all();
+
+    CategoryDTO allCount();
 }
