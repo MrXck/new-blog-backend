@@ -14,4 +14,6 @@ public class PageDTO {
     private Integer pageNum;
 
     private String keyword;
+
+    private Long categoryId;
 }

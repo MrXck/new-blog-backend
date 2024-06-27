@@ -79,5 +79,4 @@ public class ArticleController {
     public ArticleDTO getNewFeatured() {
         return articleService.getNewFeatured();
     }
-
 }

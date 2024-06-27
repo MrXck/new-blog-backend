@@ -37,7 +37,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         String keyword = dto.getKeyword();
         ArticleDTO articleDTO = new ArticleDTO();
 
-        List<ArticleVO> articleVOS = this.baseMapper.getByPage(keyword, (dto.getPageNum() - 1) * 10, dto.getPageSize());
+        List<ArticleVO> articleVOS = this.baseMapper.getByPage(keyword, (dto.getPageNum() - 1) * 10, dto.getPageSize(), dto.getCategoryId());
 
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(Article::getTitle, keyword);
@@ -144,7 +144,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ArticleDTO getNew() {
         ArticleDTO articleDTO = new ArticleDTO();
 
-        List<ArticleVO> articleVOS = this.baseMapper.getByPage("", 0, 1);
+        List<ArticleVO> articleVOS = this.baseMapper.getByPage("", 0, 1, null);
         Set<Long> articleIds = new HashSet<>();
         for (ArticleVO articleVO : articleVOS) {
             articleIds.add(articleVO.getId());

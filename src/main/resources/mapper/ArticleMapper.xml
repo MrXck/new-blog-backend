@@ -40,6 +40,9 @@
                  left join user u on a.user_id = u.id
         where a.title like concat('%', #{keyword}, '%')
           and is_delete = 0
+        <if test="categoryId != null">
+            and a.category_id = #{categoryId}
+        </if>
         ORDER BY a.update_time desc
             limit #{pageNum}
                , #{pageSize}

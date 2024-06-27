@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    List<ArticleVO> getByPage(String keyword, Integer pageNum, Integer pageSize);
+    List<ArticleVO> getByPage(String keyword, Integer pageNum, Integer pageSize, Long categoryId);
 
     List<ArticleVO> getTwoFeature();
 
