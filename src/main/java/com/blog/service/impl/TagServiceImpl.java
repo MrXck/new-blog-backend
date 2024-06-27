@@ -64,4 +64,11 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         tagDTO.setTags(this.list());
         return tagDTO;
     }
+
+    @Override
+    public TagDTO allCount() {
+        TagDTO tagDTO = new TagDTO();
+        tagDTO.setCount(this.count());
+        return tagDTO;
+    }
 }

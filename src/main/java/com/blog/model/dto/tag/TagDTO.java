@@ -12,4 +12,6 @@ public class TagDTO {
     private Page<Tag> page;
 
     private List<Tag> tags;
+
+    private Integer count;
 }

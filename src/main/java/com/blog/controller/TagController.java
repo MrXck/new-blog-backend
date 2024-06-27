@@ -49,4 +49,10 @@ public class TagController {
     public TagDTO all() {
         return tagService.all();
     }
+
+    @ApiOperation("获取标签总数")
+    @GetMapping("/count")
+    public TagDTO count() {
+        return tagService.allCount();
+    }
 }

@@ -17,4 +17,6 @@ public interface TagService extends IService<Tag> {
     void edit(UpdateDTO dto);
 
     TagDTO all();
+
+    TagDTO allCount();
 }
