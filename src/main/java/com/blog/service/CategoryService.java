@@ -15,4 +15,6 @@ public interface CategoryService extends IService<Category> {
     void delete(Long id);
 
     void edit(UpdateDTO dto);
+
+    CategoryDTO all();
 }

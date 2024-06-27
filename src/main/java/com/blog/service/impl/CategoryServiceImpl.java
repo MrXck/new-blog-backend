@@ -15,6 +15,8 @@ import com.blog.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     @Override
@@ -55,5 +57,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         Category category = new Category();
         BeanUtils.copyProperties(dto, category);
         this.updateById(category);
+    }
+
+    @Override
+    public CategoryDTO all() {
+        List<Category> list = this.list();
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setList(list);
+        return categoryDTO;
     }
 }

@@ -44,4 +44,10 @@ public class CategoryController {
         categoryService.edit(dto);
     }
 
+    @ApiOperation("获取所有分类")
+    @GetMapping("/all")
+    public CategoryDTO all() {
+        return categoryService.all();
+    }
+
 }
