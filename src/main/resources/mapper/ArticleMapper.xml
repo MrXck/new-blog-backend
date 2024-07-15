@@ -13,6 +13,10 @@
         <result property="type" column="type"/>
         <result property="createTime" column="create_time"/>
         <result property="username" column="username"/>
+        <result property="status" column="status"/>
+        <result property="avatar" column="avatar"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="content" column="content"/>
         <collection property="tagList" ofType="java.lang.String">
             <constructor>
                 <arg column="tag_name"/>
@@ -22,30 +26,32 @@
 
     <select id="getByPage" resultMap="articleVOMap">
         select a.id,
-               a.cover,
-               a.title,
-               a.digest,
-               a.is_top,
-               a.is_featured,
-               a.status,
-               a.type,
-               a.create_time,
-               c.name as category_name,
-               t.name as tag_name,
-               u.username
+        a.cover,
+        a.title,
+        a.digest,
+        a.is_top,
+        a.is_featured,
+        a.status,
+        a.type,
+        a.create_time,
+        a.status,
+        c.name as category_name,
+        t.name as tag_name,
+        u.username,
+        u.avatar
         from article a
-                 left join category c on a.category_id = c.id
-                 left join article_tag artit on a.id = artit.article_id
-                 left join tag t on artit.tag_id = t.id
-                 left join user u on a.user_id = u.id
+        left join category c on a.category_id = c.id
+        left join article_tag artit on a.id = artit.article_id
+        left join tag t on artit.tag_id = t.id
+        left join user u on a.user_id = u.id
         where a.title like concat('%', #{keyword}, '%')
-          and is_delete = 0
+        and is_delete = 0
         <if test="categoryId != null">
             and a.category_id = #{categoryId}
         </if>
         ORDER BY a.update_time desc
-            limit #{pageNum}
-               , #{pageSize}
+        limit #{pageNum}
+        , #{pageSize}
     </select>
 
     <select id="getTwoFeature" resultMap="articleVOMap">
@@ -58,15 +64,18 @@
                a.status,
                a.type,
                a.create_time,
+               a.status,
                c.name as category_name,
                t.name as tag_name,
-               u.username
+               u.username,
+               u.avatar
         from article a
                  left join category c on a.category_id = c.id
                  left join article_tag artit on a.id = artit.article_id
                  left join tag t on artit.tag_id = t.id
                  left join user u on a.user_id = u.id
-        where a.is_delete = 0 and a.is_featured = 1
+        where a.is_delete = 0
+          and a.is_featured = 1
         ORDER BY a.update_time desc limit 0, 2
     </select>
 
@@ -80,9 +89,11 @@
                a.status,
                a.type,
                a.create_time,
+               a.status,
                c.name as category_name,
                t.name as tag_name,
-               u.username
+               u.username,
+               u.avatar
         from article a
                  left join category c on a.category_id = c.id
                  left join article_tag artit on a.id = artit.article_id
@@ -92,5 +103,31 @@
         ORDER BY a.update_time desc
             limit #{pageNum}
                , #{pageSize}
+    </select>
+
+    <select id="getById" resultMap="articleVOMap">
+        select a.id,
+               a.cover,
+               a.title,
+               a.digest,
+               a.is_top,
+               a.is_featured,
+               a.status,
+               a.type,
+               a.category_id,
+               a.content,
+               a.create_time,
+               a.status,
+               c.name as category_name,
+               t.name as tag_name,
+               u.username,
+               u.avatar
+        from article a
+                 left join category c on a.category_id = c.id
+                 left join article_tag artit on a.id = artit.article_id
+                 left join tag t on artit.tag_id = t.id
+                 left join user u on a.user_id = u.id
+        where is_delete = 0
+          and a.id = #{id}
     </select>
 </mapper>

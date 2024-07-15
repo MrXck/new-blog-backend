@@ -18,6 +18,9 @@ public class ArticleVO {
     private Integer isFeatured;
     private Integer type;
     private Integer status;
+    private String avatar;
+    private String content;
+    private Long categoryId;
     private LocalDateTime createTime;
     private List<String> tagList;
 }

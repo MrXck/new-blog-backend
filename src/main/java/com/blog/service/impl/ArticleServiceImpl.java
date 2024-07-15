@@ -105,7 +105,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public ArticleDTO findById(Long id) {
         ArticleDTO articleDTO = new ArticleDTO();
-        articleDTO.setArticle(this.getById(id));
+        articleDTO.setArticleVO(this.baseMapper.getById(id));
         return articleDTO;
     }
 

@@ -19,6 +19,8 @@ public class ArticleDTO {
 
     private List<ArticleTagVO> articleTagVOS;
 
+    private ArticleVO articleVO;
+
     private Article article;
 
     private List<Article> articles;
