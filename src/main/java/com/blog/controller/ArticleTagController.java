@@ -1,7 +1,9 @@
 package com.blog.controller;
 
+import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.articleTag.ArticleTagDTO;
 import com.blog.model.dto.articleTag.SaveDTO;
+import com.blog.model.vo.ArticleTagVO;
 import com.blog.service.ArticleTagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,5 +42,12 @@ public class ArticleTagController {
     @DeleteMapping("/deleteByTagId/{id}")
     public void deleteByTagId(@PathVariable("id") Long tagId) {
         articletagService.deleteByTagId(tagId);
+    }
+
+
+    @ApiOperation("根据标签id获取该标签下的所有文章")
+    @PostMapping("/getArticleByTagId/{id}")
+    public ArticleTagVO getArticleByTagId(@PathVariable("id") Long tagId, @RequestBody PageDTO pageDTO) {
+        return articletagService.getArticleByTagId(tagId, pageDTO);
     }
 }

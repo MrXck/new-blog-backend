@@ -2,10 +2,12 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.articleTag.ArticleTagDTO;
 import com.blog.model.dto.articleTag.SaveDTO;
 import com.blog.mapper.ArticleTagMapper;
 import com.blog.model.vo.ArticleTagVO;
+import com.blog.pojo.Article;
 import com.blog.pojo.ArticleTag;
 import com.blog.pojo.Tag;
 import com.blog.service.ArticleService;
@@ -14,10 +16,7 @@ import com.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,5 +85,14 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
             return new ArrayList<>();
         }
         return this.baseMapper.getTagListByArticleIds(articleIds);
+    }
+
+    @Override
+    public ArticleTagVO getArticleByTagId(Long tagId, PageDTO dto) {
+        List<Article> articles = this.baseMapper.getArticleByTagId(tagId, dto.getPageSize(), (dto.getPageNum() - 1) * 10);
+        ArticleTagVO articleTagVO = new ArticleTagVO();
+        articleTagVO.setCount(this.baseMapper.getArticleCountByTagId(tagId));
+        articleTagVO.setArticles(articles);
+        return articleTagVO;
     }
 }

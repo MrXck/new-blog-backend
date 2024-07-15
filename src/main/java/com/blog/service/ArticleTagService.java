@@ -1,6 +1,7 @@
 package com.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.blog.model.dto.PageDTO;
 import com.blog.model.dto.articleTag.ArticleTagDTO;
 import com.blog.model.dto.articleTag.SaveDTO;
 import com.blog.model.vo.ArticleTagVO;
@@ -20,4 +21,6 @@ public interface ArticleTagService extends IService<ArticleTag> {
     void deleteByTagId(Long tagId);
 
     List<ArticleTagVO> getTagListByArticleIds(Collection<Long> articleIds);
+
+    ArticleTagVO getArticleByTagId(Long tagId, PageDTO pageDTO);
 }

@@ -9,4 +9,39 @@
             #{articleId}
         </foreach>
     </select>
+
+    <select id="getArticleByTagId" resultType="com.blog.pojo.Article">
+        select a.id,
+               a.cover,
+               a.title,
+               a.digest,
+               a.is_top,
+               a.is_featured,
+               a.status,
+               a.type,
+               a.create_time,
+               a.status,
+               c.name as category_name,
+               t.name as tag_name,
+               u.username,
+               u.avatar
+        from article a
+                 left join category c on a.category_id = c.id
+                 left join article_tag artit on a.id = artit.article_id
+                 left join tag t on artit.tag_id = t.id
+                 left join user u on a.user_id = u.id
+        where is_delete = 0
+          and artit.tag_id = #{tagId}
+        ORDER BY a.update_time desc
+            limit #{pageNum}
+               , #{pageSize}
+    </select>
+    <select id="getArticleCountByTagId" resultType="java.lang.Integer">
+        select count(*)
+        from article a
+                 left join category c on a.category_id = c.id
+                 left join article_tag artit on a.id = artit.article_id
+        where is_delete = 0
+          and artit.tag_id = #{tagId}
+    </select>
 </mapper>
