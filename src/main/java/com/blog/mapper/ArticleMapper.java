@@ -17,4 +17,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
     List<ArticleVO> getByPageAdmin(String keyword, Integer pageNum, Integer pageSize);
 
     ArticleVO getById(Long id);
+
+    List<Article> getArchive(Integer pageNum, Integer pageSize);
 }

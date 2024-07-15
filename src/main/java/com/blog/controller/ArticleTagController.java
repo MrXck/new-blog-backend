@@ -47,7 +47,7 @@ public class ArticleTagController {
 
     @ApiOperation("根据标签id获取该标签下的所有文章")
     @PostMapping("/getArticleByTagId/{id}")
-    public ArticleTagVO getArticleByTagId(@PathVariable("id") Long tagId, @RequestBody PageDTO pageDTO) {
+    public ArticleTagVO getArticleByTagId(@PathVariable("id") Long tagId, @RequestBody @Valid PageDTO pageDTO) {
         return articletagService.getArticleByTagId(tagId, pageDTO);
     }
 }

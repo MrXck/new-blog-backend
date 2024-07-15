@@ -130,4 +130,8 @@
         where is_delete = 0
           and a.id = #{id}
     </select>
+
+    <select id="getArchive" resultType="com.blog.pojo.Article">
+        select id, title, digest, create_time, update_time from article where is_delete = 0 order by create_time desc
+    </select>
 </mapper>

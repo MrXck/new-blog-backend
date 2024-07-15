@@ -85,4 +85,10 @@ public class ArticleController {
     public ArticleDTO count() {
         return articleService.allCount();
     }
+
+    @ApiOperation("获取归档")
+    @PostMapping("/archive")
+    public ArticleDTO archive(@RequestBody @Valid PageDTO dto) {
+        return articleService.archive(dto);
+    }
 }

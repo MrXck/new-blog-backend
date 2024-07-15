@@ -179,4 +179,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleDTO.setCount(this.count());
         return articleDTO;
     }
+
+    @Override
+    public ArticleDTO archive(PageDTO dto) {
+        List<Article> articles = this.baseMapper.getArchive((dto.getPageNum() - 1) * 10, dto.getPageSize());
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setArticles(articles);
+        articleDTO.setCount(this.count());
+        return articleDTO;
+    }
 }
